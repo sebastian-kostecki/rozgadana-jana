@@ -1,6 +1,12 @@
 wp-config.php
 .env
 .env.*
+!.env.example
+
+# Docker local dev
+scripts/dumps/*.sql
+scripts/dumps/*.sql.gz
+.docker/
 wp-content/uploads/
 wp-content/cache/
 wp-content/upgrade/
