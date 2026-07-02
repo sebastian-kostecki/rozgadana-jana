@@ -1,6 +1,6 @@
 services:
   wordpress:
-    image: wordpress:8.3-apache
+    image: wordpress:php8.3-apache
     ports:
       - "8080:80"
     env_file:
