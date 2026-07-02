@@ -81,3 +81,24 @@ function rj_social_links(): void {
         printf('<a href="%s" rel="noopener" target="_blank">%s</a>', esc_url($url), esc_html($label));
     }
 }
+
+/**
+ * Social links rendered as hero pills.
+ */
+function rj_social_links_pills(): void {
+    $links = array(
+        'Instagram' => get_theme_mod('rj_instagram_url', 'https://instagram.com/'),
+        'Facebook'  => get_theme_mod('rj_facebook_url', 'https://facebook.com/'),
+    );
+    foreach ($links as $label => $url) {
+        printf('<a class="pill" href="%s" rel="noopener" target="_blank">%s</a>', esc_url($url), esc_html($label));
+    }
+}
+
+/**
+ * Return a category term_id by slug, or 0 when it does not exist (safe for get_category_link).
+ */
+function get_category_by_slug_id(string $slug): int {
+    $term = get_category_by_slug($slug);
+    return $term instanceof WP_Term ? (int) $term->term_id : 0;
+}
