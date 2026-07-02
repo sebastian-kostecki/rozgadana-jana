@@ -71,6 +71,10 @@ h1,h2,h3,h4{color:var(--ink);letter-spacing:-0.02em;margin:0 0 .5em;font-weight:
 /* Review cards */
 .review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
 .review-grid--home{grid-template-columns:1fr 1fr;}
+.review-grid--home .review-card{display:grid;grid-template-columns:80px 1fr;align-items:start;}
+.review-grid--home .review-card__cover{width:80px;aspect-ratio:3/4;padding:0;font-size:9px;line-height:1.2;border-radius:var(--radius) 0 0 var(--radius);}
+.review-grid--home .review-card__body{padding:12px 14px 14px;}
+.review-card__body .post-card__meta{margin-top:10px;}
 .review-card{border:1px solid var(--border);border-radius:var(--radius);background:#fff;overflow:hidden;}
 .review-card__cover{aspect-ratio:3/4;background:linear-gradient(150deg,var(--purple-deep),var(--purple-soft));
   display:flex;align-items:flex-end;padding:12px;color:#fff;font-weight:700;font-size:12px;}

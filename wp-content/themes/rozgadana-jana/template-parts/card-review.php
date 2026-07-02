@@ -14,5 +14,13 @@
             <div class="review-card__by"><?php echo esc_html(sprintf(__('aut. %s', 'rozgadana-jana'), $rj_author)); ?></div>
         <?php endif; ?>
         <p class="review-card__excerpt"><?php echo esc_html(wp_trim_words(get_the_excerpt(), 18, '…')); ?></p>
+        <div class="post-card__meta">
+            <span><?php echo esc_html(get_the_date()); ?></span>
+            <span><?php echo esc_html(sprintf(
+                _n('%d min', '%d min', rj_reading_time_minutes((string) get_the_content()), 'rozgadana-jana'),
+                rj_reading_time_minutes((string) get_the_content())
+            )); ?></span>
+            <a class="rm" href="<?php the_permalink(); ?>"><?php esc_html_e('Czytaj dalej →', 'rozgadana-jana'); ?></a>
+        </div>
     </div>
 </article>
