@@ -1,0 +1,59 @@
+---
+description: Core WordPress + PHP standards (security, DB, hooks, i18n) for custom code in wp-content
+globs: wp-content/**/*.php
+alwaysApply: false
+---
+
+# WordPress Core & PHP Standards
+
+Foundation for all custom themes and plugins. Never modify WordPress core files; extend via hooks.
+
+## PHP baseline
+- Start every PHP file with `declare(strict_types=1);` (after the plugin/theme header comment if present).
+- Target PHP 7.4+: typed properties, return types, arrow functions where they improve clarity.
+- Prefer OOP and small, reusable, single-responsibility units over long procedural files. No duplication.
+- Follow WordPress PHP Coding Standards. Use descriptive names; comments/logs in English.
+
+## Security: sanitize input, escape output, verify intent
+Sanitize on input, escape as late as possible on output.
+
+```php
+// BAD: raw superglobal, unescaped output
+$name = $_POST['name'];
+echo '<h1>' . $name . '</h1>';
+
+// GOOD
+$name = isset( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '';
+echo '<h1>' . esc_html( $name ) . '</h1>';
+```
+
+- Input: `sanitize_text_field()`, `absint()`, `sanitize_email()`, `wp_kses_post()`, `sanitize_key()`.
+- Output: `esc_html()`, `esc_attr()`, `esc_url()`, `esc_textarea()`, `wp_kses_post()`.
+- Nonces on every form/state-changing request: `wp_nonce_field()` + `check_admin_referer()` / `wp_verify_nonce()`.
+- Authorization with `current_user_can( 'capability' )` before privileged actions.
+
+## Database
+- Use `WP_Query` / core APIs first. Drop to `$wpdb` only when necessary.
+- Always `$wpdb->prepare()` for dynamic queries; never interpolate variables into SQL.
+- Manage schema with `dbDelta()`.
+
+```php
+// BAD
+$wpdb->query( "SELECT * FROM {$wpdb->prefix}orders WHERE user_id = $user_id" );
+
+// GOOD
+$wpdb->get_results(
+    $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}orders WHERE user_id = %d", $user_id )
+);
+```
+
+## Error handling
+- Rely on `WP_DEBUG` / `WP_DEBUG_LOG` in development; log with `error_log()` (English messages).
+- Return `WP_Error` for recoverable failures; wrap risky operations in `try/catch`.
+
+## Extensibility & performance
+- Extend behavior with actions/filters (`add_action`, `add_filter`); expose your own hooks for others.
+- i18n: wrap user-facing strings with `__()`, `esc_html__()`, `_e()` using a consistent text domain.
+- Cache expensive results with the Transients API (`get_transient` / `set_transient`).
+- Store configuration via the Options API (`get_option` / `update_option`), not hardcoded values.
+- Offload long-running / recurring work to WP-Cron (`wp_schedule_event`, `wp_next_scheduled`).

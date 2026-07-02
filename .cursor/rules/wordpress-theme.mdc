@@ -1,0 +1,38 @@
+---
+description: WordPress theme development standards (structure, template hierarchy, enqueue, i18n)
+globs: wp-content/themes/**
+alwaysApply: false
+---
+
+# WordPress Theme Standards
+
+Applies on top of the core WordPress + PHP standards. Build clean, from-scratch themes.
+
+## Structure & naming
+- Directory names: lowercase-with-hyphens (e.g. `wp-content/themes/my-theme`).
+- Required files: `style.css` (with theme header), `functions.php`, `index.php`, `screenshot.png`.
+- Split logic out of `functions.php` into `inc/` (e.g. `inc/enqueue.php`, `inc/setup.php`) and load via `require_once get_template_directory() . '/inc/...'`.
+- When customizing a third-party theme, use a child theme (`Template:` header) — never edit the parent.
+
+## Template hierarchy & dynamic content
+- Follow the WordPress template hierarchy (`single.php`, `page.php`, `archive.php`, `404.php`, `template-parts/`).
+- Use template tags and conditional tags for dynamic output: `the_title()`, `the_content()`, `is_front_page()`, `is_singular()`, `have_posts()` / `the_post()`.
+- Register menus with `register_nav_menus()` and render via `wp_nav_menu()`.
+- Declare features in a `after_setup_theme` callback: `add_theme_support( 'title-tag' )`, `'post-thumbnails'`, `'html5'`.
+
+## Assets: always enqueue
+Never hardcode `<script>` / `<link>` tags in templates.
+
+```php
+// GOOD: enqueue with deps + versioning for cache busting
+add_action( 'wp_enqueue_scripts', function (): void {
+    $version = wp_get_theme()->get( 'Version' );
+    wp_enqueue_style( 'my-theme', get_stylesheet_uri(), [], $version );
+    wp_enqueue_script( 'my-theme-main', get_theme_file_uri( 'assets/js/main.js' ), [], $version, true );
+} );
+```
+
+## Output & i18n
+- Escape everything printed in templates: `esc_html()`, `esc_attr()`, `esc_url()`.
+- Wrap all user-facing strings with the theme text domain: `esc_html_e( 'Read more', 'my-theme' )`.
+- Paginate archives with `the_posts_pagination()` or `paginate_links()` instead of manual next/prev links.

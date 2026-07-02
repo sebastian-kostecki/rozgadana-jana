@@ -1,0 +1,49 @@
+---
+description: WordPress plugin development standards (structure, plugin API, DB, REST/AJAX, capabilities)
+globs: wp-content/plugins/**
+alwaysApply: false
+---
+
+# WordPress Plugin Standards
+
+Applies on top of the core WordPress + PHP standards. Prefer OOP, modular, extensible plugins.
+
+## Structure & bootstrap
+- Directory + main file: lowercase-with-hyphens (e.g. `my-plugin/my-plugin.php`) with a plugin header.
+- Guard direct access: `defined( 'ABSPATH' ) || exit;`.
+- Namespace all classes (e.g. `MyVendor\MyPlugin`) or prefix every function/hook/option to avoid collisions.
+- Autoload with Composer PSR-4 for non-trivial plugins; otherwise a small manual loader. Bootstrap via a single entry class.
+
+## Plugin API & lifecycle
+- Register behavior through hooks in the bootstrap, not at file scope side effects.
+- Lifecycle: `register_activation_hook()` (create tables, default options, flush rewrites), `register_deactivation_hook()` (unschedule cron), and an `uninstall.php` for cleanup.
+
+```php
+// my-plugin/my-plugin.php
+declare(strict_types=1);
+defined( 'ABSPATH' ) || exit;
+
+register_activation_hook( __FILE__, [ \MyVendor\MyPlugin\Installer::class, 'activate' ] );
+add_action( 'plugins_loaded', [ \MyVendor\MyPlugin\Plugin::class, 'boot' ] );
+```
+
+## Database & options
+- Create/upgrade tables with `dbDelta()`; store a schema version in an option and run migrations when it changes.
+- Use the Options API for settings; wrap multi-step writes in transactions when integrity matters.
+
+## AJAX & REST
+- REST first: `register_rest_route()` with a real `permission_callback` (never `__return_true` for privileged routes).
+- Legacy AJAX: hook `wp_ajax_{action}` (and `wp_ajax_nopriv_{action}` only when truly public); verify nonce + capability.
+
+```php
+register_rest_route( 'my-plugin/v1', '/items', [
+    'methods'             => 'POST',
+    'callback'            => [ $controller, 'create_item' ],
+    'permission_callback' => static fn (): bool => current_user_can( 'edit_posts' ),
+] );
+```
+
+## Access, i18n & tooling
+- Gate features with roles/capabilities (`current_user_can`), add custom caps on activation when needed.
+- i18n: load the text domain (`load_plugin_textdomain`) and wrap strings with the plugin domain.
+- Tooling: manage deps with Composer, lint with PHPCS + WordPress-Coding-Standards, write tests with `WP_UnitTestCase`.
