@@ -22,6 +22,8 @@ add_action('wp_enqueue_scripts', static function (): void {
     if (is_front_page()) {
         wp_enqueue_script('rj-filter', get_theme_file_uri('assets/js/category-filter.js'), array(), $ver, true);
     }
+
+    wp_enqueue_script('rj-nav', get_theme_file_uri('assets/js/nav.js'), array(), $ver, true);
 }, 20);
 
 // Preload the primary body font weight for faster first paint.
