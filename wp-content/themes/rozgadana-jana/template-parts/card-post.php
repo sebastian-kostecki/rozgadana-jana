@@ -1,10 +1,7 @@
 <?php declare(strict_types=1); ?>
-<?php
-$rj_cats = get_the_category();
-$rj_cat  = $rj_cats[0] ?? null;
-?>
+<?php $rj_cat = rj_primary_category(); ?>
 <article <?php post_class('post-card ' . rj_post_card_modifier(get_the_ID())); ?>
-         data-category="<?php echo esc_attr($rj_cat->slug ?? ''); ?>">
+         data-category="<?php echo esc_attr(rj_category_filter_slug($rj_cat)); ?>">
     <?php if ($rj_cat) : ?>
         <span class="post-card__cat"><?php echo esc_html($rj_cat->name); ?></span>
     <?php endif; ?>

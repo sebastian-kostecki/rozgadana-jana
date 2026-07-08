@@ -18,15 +18,42 @@
 
         <div class="post-grid" id="rj-thoughts">
             <?php
-            $rj_thoughts = new WP_Query(array(
+            $rj_q_common = array(
                 'posts_per_page'      => 6,
                 'ignore_sticky_posts' => true,
                 'no_found_rows'       => true,
-            ));
-            if ($rj_thoughts->have_posts()) :
-                while ($rj_thoughts->have_posts()) : $rj_thoughts->the_post();
+            );
+
+            $rj_codz = new WP_Query(array_merge($rj_q_common, array(
+                'category_name' => 'codziennosc-z-bogiem',
+            )));
+
+            $rj_fam = new WP_Query(array_merge($rj_q_common, array(
+                'category_name' => 'macierzynstwo-i-rodzina',
+            )));
+
+            /** @var array<int, WP_Post> $rj_posts */
+            $rj_posts = array();
+            foreach (array($rj_codz->posts, $rj_fam->posts) as $rj_list) {
+                foreach ($rj_list as $rj_post) {
+                    if (!$rj_post instanceof WP_Post) {
+                        continue;
+                    }
+                    $rj_posts[$rj_post->ID] = $rj_post; // dedupe by ID
+                }
+            }
+
+            $rj_posts = array_values($rj_posts);
+            usort($rj_posts, static function (WP_Post $a, WP_Post $b): int {
+                return strcmp((string) $b->post_date_gmt, (string) $a->post_date_gmt);
+            });
+
+            if ($rj_posts !== array()) :
+                global $post;
+                foreach ($rj_posts as $post) :
+                    setup_postdata($post);
                     get_template_part('template-parts/card', 'post');
-                endwhile;
+                endforeach;
                 wp_reset_postdata();
             else :
                 get_template_part('template-parts/content', 'none');

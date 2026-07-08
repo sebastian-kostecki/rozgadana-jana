@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 defined('ABSPATH') || exit;
 
+require_once dirname(__DIR__) . '/tests/primary-category-fn.php';
+
 /**
  * Reading time in minutes for the current post content (~200 wpm, min 1).
  */
@@ -38,16 +40,27 @@ function rj_post_meta(): void {
 }
 
 /**
+ * Resolve the primary category for a post (prefers known thought slugs over default).
+ */
+function rj_primary_category(int $post_id = 0): ?WP_Term {
+    $categories = get_the_category($post_id);
+    if ($categories === array()) {
+        return null;
+    }
+
+    $picked = rj_pick_primary_category($categories, (int) get_option('default_category'));
+
+    return $picked instanceof WP_Term ? $picked : null;
+}
+
+/**
  * CSS modifier class for a post card based on its primary category slug.
  */
 function rj_post_card_modifier(int $post_id): string {
-    $family_slugs = array('macierzynstwo-i-rodzina', 'macierzynstwo', 'rodzina');
-    foreach (get_the_category($post_id) as $cat) {
-        if (in_array($cat->slug, $family_slugs, true)) {
-            return 'post-card--family';
-        }
-    }
-    return '';
+    $cat = rj_primary_category($post_id);
+    return in_array($cat->slug ?? '', rj_family_category_slugs(), true)
+        ? 'post-card--family'
+        : '';
 }
 
 /**

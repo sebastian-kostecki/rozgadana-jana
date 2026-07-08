@@ -3,7 +3,7 @@
 <main id="main" class="site-main container">
     <?php while (have_posts()) : the_post(); ?>
         <article <?php post_class('article'); ?>>
-            <?php $rj_cats = get_the_category(); $rj_cat = $rj_cats[0] ?? null; ?>
+            <?php $rj_cat = rj_primary_category(); ?>
             <?php if ($rj_cat) : ?>
                 <a class="article__cat" href="<?php echo esc_url(get_category_link($rj_cat)); ?>"><?php echo esc_html($rj_cat->name); ?></a>
             <?php endif; ?>
