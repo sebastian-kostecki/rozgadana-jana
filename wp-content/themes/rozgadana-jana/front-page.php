@@ -16,10 +16,10 @@
             <a class="filter__chip" href="<?php echo esc_url(get_category_link(get_category_by_slug_id('macierzynstwo-i-rodzina'))); ?>" data-filter="macierzynstwo-i-rodzina"><?php esc_html_e('Macierzyństwo i rodzina', 'rozgadana-jana'); ?></a>
         </div>
 
-        <div class="post-grid" id="rj-thoughts">
+        <div class="row-list" id="rj-thoughts">
             <?php
             $rj_q_common = array(
-                'posts_per_page'      => 6,
+                'posts_per_page'      => 5,
                 'ignore_sticky_posts' => true,
                 'no_found_rows'       => true,
             );
@@ -47,6 +47,7 @@
             usort($rj_posts, static function (WP_Post $a, WP_Post $b): int {
                 return strcmp((string) $b->post_date_gmt, (string) $a->post_date_gmt);
             });
+            $rj_posts = array_slice($rj_posts, 0, 5);
 
             if ($rj_posts !== array()) :
                 global $post;
@@ -67,11 +68,11 @@
             <h2 id="reviews-h"><?php esc_html_e('Recenzje książek', 'rozgadana-jana'); ?></h2>
             <a class="more" href="<?php echo esc_url(home_url('/ksiazki/')); ?>"><?php esc_html_e('Wszystkie recenzje →', 'rozgadana-jana'); ?></a>
         </div>
-        <div class="review-grid review-grid--home">
+        <div class="row-list">
             <?php
             $rj_reviews = new WP_Query(array(
                 'post_type'           => 'recenzja',
-                'posts_per_page'      => 4,
+                'posts_per_page'      => 5,
                 'no_found_rows'       => true,
             ));
             if ($rj_reviews->have_posts()) :
