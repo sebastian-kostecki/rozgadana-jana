@@ -12,7 +12,7 @@
     </header>
 
     <?php if (have_posts()) : ?>
-        <div class="review-grid">
+        <div class="row-list">
             <?php while (have_posts()) : the_post(); ?>
                 <?php get_template_part('template-parts/card', 'review'); ?>
             <?php endwhile; ?>
