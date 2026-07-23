@@ -1,8 +1,8 @@
 # Baseline — punkt startowy dalszej pracy
 
 **Data:** 2026-07-23  
-**Commit:** `872152d` (`chore: ignore .worktrees directory`)  
-**Gałąź bazowa:** `development` (po merge z `dev/new-design-improvements`)  
+**Commit:** `25a98d1` (`docs: record accepted theme baseline for further work`)  
+**Gałąź bazowa:** `development` (zmergowana z `dev/new-design-improvements`)  
 **Motyw:** `wp-content/themes/rozgadana-jana` v0.1.0
 
 Ten dokument opisuje **zaakceptowany stan kodu**, od którego idą kolejne zmiany. Nie cofaj się poniżej tej linii bez świadomej decyzji.
