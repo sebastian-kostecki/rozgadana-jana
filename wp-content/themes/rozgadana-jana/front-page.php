@@ -23,55 +23,47 @@
 
     <section class="section" aria-labelledby="thoughts-h">
         <div class="section__head">
-            <h2 id="thoughts-h"><?php esc_html_e('Przemyślenia', 'rozgadana-jana'); ?></h2>
+            <h2 id="thoughts-h"><?php esc_html_e('Wcześniej pisałam', 'rozgadana-jana'); ?></h2>
             <a class="more" href="<?php echo esc_url(home_url('/blog/')); ?>"><?php esc_html_e('Wszystkie wpisy →', 'rozgadana-jana'); ?></a>
         </div>
 
-        <div class="filter" role="tablist" aria-label="<?php esc_attr_e('Filtr kategorii', 'rozgadana-jana'); ?>">
-            <a class="filter__chip is-active" href="#" data-filter="*"><?php esc_html_e('Wszystko', 'rozgadana-jana'); ?></a>
-            <a class="filter__chip" href="<?php echo esc_url(get_category_link(get_category_by_slug_id('codziennosc-z-bogiem'))); ?>" data-filter="codziennosc-z-bogiem"><?php esc_html_e('Codzienność z Bogiem', 'rozgadana-jana'); ?></a>
-            <a class="filter__chip" href="<?php echo esc_url(get_category_link(get_category_by_slug_id('macierzynstwo-i-rodzina'))); ?>" data-filter="macierzynstwo-i-rodzina"><?php esc_html_e('Macierzyństwo i rodzina', 'rozgadana-jana'); ?></a>
+        <div class="filter">
+            <a class="filter__chip is-active" href="<?php echo esc_url(home_url('/blog/')); ?>" data-filter="*" aria-current="true"><?php esc_html_e('Wszystko', 'rozgadana-jana'); ?></a>
+            <?php
+            $rj_chips = array(
+                'codziennosc-z-bogiem'    => __('Codzienność z Bogiem', 'rozgadana-jana'),
+                'macierzynstwo-i-rodzina' => __('Macierzyństwo i rodzina', 'rozgadana-jana'),
+            );
+            foreach ($rj_chips as $rj_slug => $rj_label) :
+                $rj_term = get_category_by_slug($rj_slug);
+                if (!$rj_term instanceof WP_Term) {
+                    continue;
+                }
+                ?>
+                <a class="filter__chip"
+                   href="<?php echo esc_url(get_category_link($rj_term)); ?>"
+                   data-filter="<?php echo esc_attr($rj_slug); ?>"><?php echo esc_html($rj_label); ?></a>
+            <?php endforeach; ?>
         </div>
 
         <div class="row-list" id="rj-thoughts">
             <?php
-            $rj_q_common = array(
+            $rj_thoughts = new WP_Query(array(
                 'posts_per_page'      => 5,
                 'ignore_sticky_posts' => true,
                 'no_found_rows'       => true,
-            );
-
-            $rj_codz = new WP_Query(array_merge($rj_q_common, array(
-                'category_name' => 'codziennosc-z-bogiem',
-            )));
-
-            $rj_fam = new WP_Query(array_merge($rj_q_common, array(
-                'category_name' => 'macierzynstwo-i-rodzina',
-            )));
-
-            /** @var array<int, WP_Post> $rj_posts */
-            $rj_posts = array();
-            foreach (array($rj_codz->posts, $rj_fam->posts) as $rj_list) {
-                foreach ($rj_list as $rj_post) {
-                    if (!$rj_post instanceof WP_Post) {
-                        continue;
-                    }
-                    $rj_posts[$rj_post->ID] = $rj_post; // dedupe by ID
-                }
-            }
-
-            $rj_posts = array_values($rj_posts);
-            usort($rj_posts, static function (WP_Post $a, WP_Post $b): int {
-                return strcmp((string) $b->post_date_gmt, (string) $a->post_date_gmt);
-            });
-            $rj_posts = array_slice($rj_posts, 0, 5);
-
-            if ($rj_posts !== array()) :
-                global $post;
-                foreach ($rj_posts as $post) :
-                    setup_postdata($post);
-                    get_template_part('template-parts/card', 'post');
-                endforeach;
+                'post__not_in'        => $rj_featured_id > 0 ? array($rj_featured_id) : array(),
+            ));
+            if ($rj_thoughts->have_posts()) :
+                $rj_i = 0;
+                while ($rj_thoughts->have_posts()) :
+                    $rj_thoughts->the_post();
+                    $rj_i++;
+                    get_template_part('template-parts/list-item', null, array(
+                        'variant' => 'home',
+                        'index'   => $rj_i,
+                    ));
+                endwhile;
                 wp_reset_postdata();
             else :
                 get_template_part('template-parts/content', 'none');
