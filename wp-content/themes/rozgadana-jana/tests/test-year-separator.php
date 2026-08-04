@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-require __DIR__ . '/year-separator-fn.php';
+require dirname(__DIR__) . '/inc/year-separator.php';
 
 /** @var list<array{0: ?int, 1: int, 2: bool}> $cases */
 $cases = array(

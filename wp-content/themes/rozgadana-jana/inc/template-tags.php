@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 defined('ABSPATH') || exit;
 
-require_once dirname(__DIR__) . '/tests/primary-category-fn.php';
-require_once dirname(__DIR__) . '/tests/year-separator-fn.php';
+require_once __DIR__ . '/primary-category.php';
+require_once __DIR__ . '/year-separator.php';
 
 /**
  * Reading time in minutes for the current post content (~200 wpm, min 1).
@@ -88,12 +88,4 @@ function rj_social_links(): void {
             esc_html($label)
         );
     }
-}
-
-/**
- * Return a category term_id by slug, or 0 when it does not exist (safe for get_category_link).
- */
-function get_category_by_slug_id(string $slug): int {
-    $term = get_category_by_slug($slug);
-    return $term instanceof WP_Term ? (int) $term->term_id : 0;
 }

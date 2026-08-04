@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-require __DIR__ . '/primary-category-fn.php';
+require dirname(__DIR__) . '/inc/primary-category.php';
 
 /**
  * @param list<string> $slugs

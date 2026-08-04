@@ -11,4 +11,4 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: rozgadana-jana
 */
 
-/* Base styles live in assets/css/theme.css (enqueued). This file only carries the theme header. */
+/* Base styles live in assets/css/base.css, components.css, and content.css (enqueued). This file only carries the theme header. */

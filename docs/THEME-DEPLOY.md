@@ -15,10 +15,10 @@ Workflow z repo: **`development` → `staging` → `main`**, upload plików prze
 
 2. **Lokalny smoke test** (http://localhost:8080):
 
-   - strona główna (hero, filtr kategorii, recenzje)
+   - strona główna (brand bar, featured stage, filtr kategorii, typographic rows, cover shelf/grid)
    - pojedynczy wpis, archiwum kategorii
    - `/ksiazki/`, pojedyncza recenzja
-   - `/o-mnie/`, 404, wyszukiwarka
+   - `/o-mnie/` (about strip), 404, wyszukiwarka
    - `php wp-content/themes/rozgadana-jana/tests/test-reading-time.php` → OK
 
 3. **Spisz, co wgrywasz** (tylko to, co się zmieniło):
@@ -81,13 +81,13 @@ Szczegółowa instrukcja konwersji: sekcja [Konwersja wpisu na recenzję](#konwe
 
 ### 1.6 Checklist QA na stagingu
 
-- [ ] Strona główna: hero, filtr JS (klik bez przeładowania), sekcje Przemyślenia + Recenzje
-- [ ] `/category/codziennosc-z-bogiem/` i `/category/macierzynstwo-i-rodzina/`
+- [ ] Strona główna: brand bar, featured stage (najnowszy wpis), filtr JS (klik bez przeładowania), sekcje Przemyślenia (typographic rows) + Recenzje (cover shelf/grid)
+- [ ] `/category/codziennosc-z-bogiem/` i `/category/macierzynstwo-i-rodzina/` — typographic rows grouped by year, pagination
 - [ ] Pojedynczy wpis: data, czas czytania, poprzedni/następny
 - [ ] `/ksiazki/` + pojedyncza recenzja (okładka, autor książki)
-- [ ] `/o-mnie/` — zdjęcie autorki
-- [ ] 404, wyszukiwarka
-- [ ] Mobile: menu hamburger, jedna kolumna kart
+- [ ] `/o-mnie/` — about strip z logo i opisem
+- [ ] 404, wyszukiwarka (search results show full date on desktop)
+- [ ] Mobile: menu hamburger, responsive layout
 - [ ] Brak błędów PHP w logach hostingu
 
 ---

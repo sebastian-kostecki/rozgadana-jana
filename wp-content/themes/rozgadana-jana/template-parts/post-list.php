@@ -15,7 +15,7 @@ $args           = is_array($args ?? null) ? $args : array();
 $rj_group_years = (bool) ($args['group_by_year'] ?? true);
 ?>
 <?php if (have_posts()) : ?>
-    <div class="row-list row-list--archive">
+    <div class="row-list<?php echo $rj_group_years ? ' row-list--archive' : ''; ?>">
         <?php
         $rj_prev_year = null;
         while (have_posts()) :

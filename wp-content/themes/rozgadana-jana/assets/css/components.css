@@ -1,6 +1,5 @@
 /* Site chrome, lists and interactive components.
-   Depends on tokens from base.css. Rules here are progressively replaced
-   by Tasks 2-12; anything still card-shaped is removed in Task 13. */
+   Depends on tokens from base.css. */
 
 /* Header */
 .site-header {
@@ -201,7 +200,7 @@
 
 @media (max-width:600px){
   .main-nav{display:none;}
-  .main-nav.is-open{display:block;position:absolute;left:0;right:0;background:#fff;border-bottom:1px solid #EFE6F5;padding:12px 24px;z-index:50;}
+  .main-nav.is-open{display:block;position:absolute;left:0;right:0;background:var(--surface);border-bottom:1px solid var(--line);padding:12px 24px;z-index:50;}
   .main-nav.is-open ul{flex-direction:column;gap:12px;}
   .nav-toggle{display:inline-block;}
   .site-header .container{position:relative;}
