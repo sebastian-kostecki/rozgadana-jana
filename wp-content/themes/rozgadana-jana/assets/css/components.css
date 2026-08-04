@@ -418,6 +418,7 @@
 .year-heading__rule { flex: 1; height: 1px; background: var(--line); }
 
 /* The archive variant carries a date column, so it suppresses the inline date. */
+.row-list:not(.row-list--archive) .row-item__date { display: none; }
 .row-list--archive .row-item__date-inline { display: none; }
 
 @media (max-width: 600px) {

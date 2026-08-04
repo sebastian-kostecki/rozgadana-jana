@@ -362,7 +362,7 @@ Motyw rozróżnia **dwa rodzaje treści**. To nie są dwie kategorie — to dwa 
 
 **Zasady:**
 
-- Każdy wpis powinien mieć **jedną** kategorię (główną) — od tego zależy filtr na stronie głównej i kolor paska karty
+- Każdy wpis powinien mieć **jedną** kategorię (główną) — od tego zależy filtr/chipy na stronie głównej i przypisanie wpisu do właściwej sekcji w wierszach typograficznych
 - Wypełnij **zajawkę** (excerpt) — wyświetla się na kartach; jeśli pusta, WordPress obetnie treść automatycznie
 - **Nie** oznaczaj przemyśleń kategorią „recenzja” — recenzje mają osobny typ treści
 
