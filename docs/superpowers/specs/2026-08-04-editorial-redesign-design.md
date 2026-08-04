@@ -208,19 +208,27 @@ breadcrumb, category name, Lora H1, meta line, and the body in the 680px reading
 
 ### 5.5 Single review (`single-recenzja.php`)
 
-Reading progress bar, breadcrumb, then a `--surface` band containing the cover (132px wide,
-2:3 portrait aspect) beside the book metadata: eyebrow "Recenzja", Lora H1 title, book
-author in Lora, meta line, and a **pull-quote** giving the verdict in one sentence.
+The whole page lives inside the same 680px reading column as posts — there is no
+full-width `--surface` band. Reading progress bar, then breadcrumb, then a header row
+holding the cover (118px wide, 2:3 portrait aspect) beside the book metadata: eyebrow
+"Recenzja", Lora H1 title, book author in Lora, and the meta line. A hairline separates the
+header from the review body, which then runs in the same column. Prev/next review
+navigation closes the page.
 
-Below the band, the review body runs in the same 680px reading column as posts, then
-prev/next review navigation.
+**One left edge for everything.** Breadcrumb, cover, title, hairline and every paragraph
+share a single left edge. An earlier draft put the header in a full-width white band, which
+made it read as though it had been pasted in from a different template — that band is gone.
 
-Placing the body under the band rather than beside the cover is deliberate: a column next
-to a 132px cover would be about 40 characters wide and would read poorly.
+The body starts under the header rather than beside the cover because a column next to a
+118px cover would be roughly 40 characters wide and would read poorly.
 
-**Pull-quote source:** the post excerpt of the `recenzja` entry. This reuses an existing
-field rather than adding meta. If the excerpt is empty, the pull-quote is omitted entirely
-(no auto-generated excerpt, which would just repeat the opening sentence).
+Reviews get the same drop cap as posts, since this is now the same kind of reading page.
+
+**No pull-quote.** An earlier draft placed a one-sentence verdict above the body, sourced
+from the entry's excerpt. It is dropped: it added a second competing entry point to a page
+that only needs one. A useful side effect is that the excerpt field is no longer read on
+this template at all, so an empty excerpt can no longer leave a hole in the layout. Excerpts
+are still used in the `/ksiazki/` grid.
 
 ### 5.6 About (`page-o-mnie.php`)
 
@@ -242,9 +250,9 @@ Restyled to the new system, structurally unchanged. `page.php` uses the reading 
 | Breakpoint | Changes |
 |---|---|
 | ≤1000px | Review grid and shelf: 4 → 3 columns |
-| ≤900px | Featured block padding reduced; About strip stacks photo above text; review header band cover shrinks to 110px |
+| ≤900px | Featured block padding reduced; About strip stacks photo above text |
 | ≤720px | Review grid and shelf: 3 → 2 columns. Deliberately *not* 1 — a single column would produce oversized covers and excessive scrolling |
-| ≤640px | Review header band stacks: cover above metadata |
+| ≤640px | Review header stacks: cover above the title and author, still on the same left edge |
 | ≤600px | Nav collapses behind the existing toggle; archive list drops the date column and moves the date under the title beside the category; article body 17px; section gaps 32px |
 
 ## 7. Technical architecture
@@ -337,10 +345,11 @@ navigation or URLs.
 2. **Featured post and filtering** — the featured post is the newest post regardless of
    category and is excluded from the list below. Filter chips do not affect it. Record this
    in the QA checklist so it is not reported as a defect.
-3. **Empty review excerpts** — existing `recenzja` entries may have no excerpt, in which case
-   the pull-quote is omitted. Check the live content before deploy and decide whether to
-   backfill excerpts.
-4. **Drop cap edge case** — posts opening with an image or heading get no drop cap by design.
+3. **Empty review excerpts** — with the pull-quote dropped, excerpts are read only by the
+   `/ksiazki/` grid. Entries without one simply show title and author, which is acceptable;
+   no backfill is required before deploy.
+4. **Drop cap edge case** — posts and reviews opening with an image or heading get no drop cap
+   by design.
 5. **Missing About page excerpt** — the About strip falls back to a hardcoded string; confirm
    the `o-mnie` page has an excerpt so the fallback is not what visitors actually see.
 6. **Version bump** — theme version must go to `0.2.0` so LiteSpeed Cache and browsers pick
