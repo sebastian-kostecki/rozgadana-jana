@@ -25,7 +25,10 @@ h1,h2,h3,h4{color:var(--ink);letter-spacing:-0.02em;margin:0 0 .5em;font-weight:
 /* Header */
 .site-header{background:#fff;border-bottom:1px solid #EFE6F5;}
 .site-header .container{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:16px;padding-bottom:16px;}
-.site-brand{font-weight:800;font-size:18px;color:var(--ink);letter-spacing:-.01em;}
+.site-brand{display:inline-flex;align-items:center;gap:10px;font-weight:800;font-size:18px;color:var(--ink);letter-spacing:-.01em;text-decoration:none;}
+.site-brand:hover{text-decoration:none;}
+.site-brand__logo{width:36px;height:36px;border-radius:50%;object-fit:cover;flex:none;}
+.site-brand__name{line-height:1;}
 .main-nav ul{list-style:none;display:flex;gap:18px;margin:0;padding:0;flex-wrap:wrap;}
 .main-nav a{font-weight:600;font-size:13px;color:#6B6472;}
 .main-nav .current-menu-item>a,.main-nav a:hover{color:var(--purple-deep);text-decoration:none;}

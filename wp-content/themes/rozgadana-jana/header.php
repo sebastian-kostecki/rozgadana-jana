@@ -11,7 +11,14 @@
 <a class="skip-link" href="#main"><?php esc_html_e('Przejdź do treści', 'rozgadana-jana'); ?></a>
 <header class="site-header">
     <div class="container">
-        <a class="site-brand" href="<?php echo esc_url(home_url('/')); ?>"><?php bloginfo('name'); ?></a>
+        <a class="site-brand" href="<?php echo esc_url(home_url('/')); ?>">
+            <img class="site-brand__logo"
+                 src="<?php echo esc_url(get_theme_file_uri('assets/images/logo-round.jpg')); ?>"
+                 alt=""
+                 width="36"
+                 height="36">
+            <span class="site-brand__name"><?php bloginfo('name'); ?></span>
+        </a>
         <button class="nav-toggle" aria-expanded="false" aria-controls="primary-menu">
             <?php esc_html_e('Menu', 'rozgadana-jana'); ?>
         </button>
