@@ -94,15 +94,21 @@ Two families, strictly divided by role.
 important readability change; today the body is 16px at `line-height: 1.8` in the same
 column, so both size and measure improve.
 
-**Font files:** Lora ships a variable font. Use two files rather than four statics:
-`lora-variable.woff2` (weights 400–600) and `lora-italic-variable.woff2`, both `latin-ext`
-subset so Polish diacritics are covered, `font-display: swap`. Self-hosted in
-`assets/fonts/` exactly like Manrope — no Google CDN, no GDPR exposure. All five Manrope
-weights stay in use (400 for lead paragraphs and the About-strip bio, 500–800 for UI).
+**Font files:** Lora ships a variable font, so one file per subset covers weights 400–600
+instead of one file per weight. Google serves it split by Unicode subset, and Polish needs
+both halves — `ó` lives in `latin`, while `ą ć ę ł ń ś ź ż` live in `latin-ext`. Self-host
+four files and let `unicode-range` decide what actually downloads:
+
+- `lora-latin.woff2`, `lora-latin-ext.woff2` (roman, weights 400–600)
+- `lora-italic-latin.woff2`, `lora-italic-latin-ext.woff2` (italic, weights 400–600)
+
+All with `font-display: swap`, in `assets/fonts/` exactly like Manrope — no Google CDN, no
+GDPR exposure. All five Manrope weights stay in use (400 for lead paragraphs and the
+About-strip bio, 500–800 for UI).
 
 The `wp_head` preload in `inc/enqueue.php` currently preloads `manrope-400.woff2` only. It
-must preload `lora-variable.woff2` as well, since Lora now renders the first meaningful
-text on every page.
+must also preload `lora-latin.woff2` and `lora-latin-ext.woff2`, since Lora renders the
+first meaningful text on every page and Polish copy needs both subsets immediately.
 
 ### 4.3 Shape, depth and spacing
 
@@ -155,7 +161,9 @@ Order, top to bottom:
 6. **About strip** (new, `template-parts/about-strip.php`) — lilac block, 92px author photo,
    eyebrow "Kto tu pisze", "Cześć, jestem Jana" in Lora, short bio, "Przeczytaj całą
    historię →" link.
-7. **Footer** — `#ROZGADANAJANA` wordmark, mini nav, social pills, copyright line.
+7. **Footer** — the existing `#ROZGADANAJANA` wordmark image (`assets/images/wordmark.jpg`),
+   mini nav, social pills, copyright line. The mockups drew this logotype as Lora text; the
+   real handwritten asset is better and is already in the theme, so it stays.
 
 **About strip content source:** read the page with slug `o-mnie` and use its featured image
 and excerpt. This keeps the strip editable by the author without adding any config field.
@@ -167,7 +175,10 @@ rows, and without JavaScript the chips are ordinary links to category archives. 
 affects only the list; the featured post stays in place regardless of the active chip. This
 is a deliberate simplification and should be stated in QA so it is not filed as a bug.
 
-### 5.2 Post archive, categories, search (`archive.php`, `category.php`, `search.php`)
+### 5.2 Post archive, categories, search (`home.php`, `archive.php`, `category.php`, `search.php`)
+
+Note on templates: `/blog/` is the WordPress posts page, so it renders through `home.php`,
+not `archive.php`. All four templates share the same list markup.
 
 Page head: breadcrumb, eyebrow, H1, lead paragraph. Chips on the blog and category
 archives; no chips on search results.
