@@ -1,7 +1,7 @@
 # Baseline — punkt startowy dalszej pracy
 
 **Data:** 2026-08-04  
-**Commit:** `213cce9` (Task 13: editorial redesign cleanup)  
+**Commit:** `62ed9ac` (Task 13: editorial redesign cleanup)  
 **Gałąź bazowa:** `feat/editorial-redesign`  
 **Motyw:** `wp-content/themes/rozgadana-jana` v0.2.0
 
