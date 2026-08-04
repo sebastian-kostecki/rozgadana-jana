@@ -181,3 +181,45 @@
   .nav-toggle{display:inline-block;}
   .site-header .container{position:relative;}
 }
+
+/* Brand bar — front-page identity row */
+.brand-bar {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	background: var(--surface);
+	border: 1px solid var(--line);
+	border-radius: var(--radius);
+	padding: 16px 20px;
+	margin: 24px 0 0;
+}
+.brand-bar__logo {
+	width: 44px;
+	height: 44px;
+	border-radius: 50%;
+	object-fit: cover;
+	flex: none;
+}
+.brand-bar__text { flex: 1; min-width: 0; }
+.brand-bar__tagline {
+	font: 500 20px/1.25 var(--font-serif);
+	color: var(--ink);
+	margin: 0;
+}
+.brand-bar__intro {
+	font: 400 14px/1.5 var(--font-sans);
+	color: var(--text);
+	margin: 4px 0 0;
+}
+.brand-bar__link {
+	flex: none;
+	font: 700 13px/1 var(--font-sans);
+	color: var(--purple);
+	white-space: nowrap;
+}
+
+@media (max-width: 700px) {
+	.brand-bar { flex-wrap: wrap; gap: 12px; }
+	.brand-bar__text { flex-basis: 100%; order: 3; }
+	.brand-bar__link { margin-left: auto; }
+}

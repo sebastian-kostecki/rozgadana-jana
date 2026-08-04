@@ -2,7 +2,7 @@
 <?php get_header(); ?>
 <main id="main" class="site-main container">
 
-    <?php get_template_part('template-parts/hero'); ?>
+    <?php get_template_part('template-parts/brand-bar'); ?>
 
     <section class="section" aria-labelledby="thoughts-h">
         <div class="section__head">
