@@ -1,7 +1,7 @@
 <?php declare(strict_types=1); ?>
 <section class="hero">
     <img class="hero__logo"
-         src="<?php echo esc_url(get_theme_file_uri('assets/images/logo-round.jpg')); ?>"
+         src="<?php echo esc_url(get_theme_file_uri('assets/images/author.jpg')); ?>"
          alt="<?php echo esc_attr(get_bloginfo('name')); ?>">
     <div class="hero__text">
         <p class="eyebrow"><?php esc_html_e('Witaj u mnie', 'rozgadana-jana'); ?></p>
