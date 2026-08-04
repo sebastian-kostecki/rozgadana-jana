@@ -26,6 +26,10 @@ add_action('wp_enqueue_scripts', static function (): void {
     if (is_front_page()) {
         wp_enqueue_script('rj-filter', get_theme_file_uri('assets/js/category-filter.js'), array(), $ver, true);
     }
+
+    if (is_singular()) {
+        wp_enqueue_script('rj-progress', get_theme_file_uri('assets/js/reading-progress.js'), array(), $ver, true);
+    }
 }, 20);
 
 /**
