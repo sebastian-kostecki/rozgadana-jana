@@ -15,22 +15,12 @@
 	padding-bottom: 16px;
 }
 .site-brand {
-	display: inline-flex;
-	align-items: center;
-	gap: 10px;
 	font: 800 16px/1 var(--font-sans);
 	color: var(--ink);
-	letter-spacing: -.01em;
+	letter-spacing: -.02em;
 	text-decoration: none;
 }
-.site-brand:hover { text-decoration: none; }
-.site-brand__logo {
-	width: 40px;
-	height: 40px;
-	border-radius: 50%;
-	object-fit: cover;
-	flex: none;
-}
+.site-brand:hover { text-decoration: none; color: var(--purple); }
 .main-nav ul {
 	list-style: none;
 	display: flex;
