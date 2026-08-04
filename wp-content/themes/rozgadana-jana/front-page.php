@@ -97,5 +97,7 @@
         </div>
     </section>
 
+    <?php get_template_part('template-parts/about-strip'); ?>
+
 </main>
 <?php get_footer(); ?>

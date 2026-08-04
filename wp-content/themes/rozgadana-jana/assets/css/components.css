@@ -383,3 +383,44 @@
 	.cover-shelf,
 	.cover-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* About strip — the one place lilac fills a surface */
+.about-strip {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	background: var(--lilac);
+	border-radius: var(--radius-lg);
+	padding: 24px 26px;
+	margin: var(--section-gap) 0 0;
+}
+.about-strip__photo {
+	width: 92px;
+	height: 92px;
+	border-radius: var(--radius);
+	object-fit: cover;
+	flex: none;
+	box-shadow: var(--shadow);
+}
+.about-strip__title {
+	font: 600 21px/1.25 var(--font-serif);
+	color: var(--ink);
+	letter-spacing: 0;
+	margin: 9px 0 7px;
+}
+.about-strip__bio {
+	font: 400 15px/1.65 var(--font-sans);
+	color: var(--text);
+	margin: 0;
+	max-width: 60ch;
+}
+.about-strip__link {
+	display: inline-block;
+	font: 700 13px/1 var(--font-sans);
+	color: var(--purple);
+	margin-top: 12px;
+}
+
+@media (max-width: 900px) {
+	.about-strip { flex-direction: column; align-items: flex-start; }
+}
