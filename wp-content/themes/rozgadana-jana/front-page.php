@@ -74,19 +74,20 @@
 
     <section class="section" aria-labelledby="reviews-h">
         <div class="section__head">
-            <h2 id="reviews-h"><?php esc_html_e('Recenzje książek', 'rozgadana-jana'); ?></h2>
+            <h2 id="reviews-h"><?php esc_html_e('Wartościowe książki', 'rozgadana-jana'); ?></h2>
             <a class="more" href="<?php echo esc_url(home_url('/ksiazki/')); ?>"><?php esc_html_e('Wszystkie recenzje →', 'rozgadana-jana'); ?></a>
         </div>
-        <div class="row-list">
+        <div class="cover-shelf">
             <?php
             $rj_reviews = new WP_Query(array(
-                'post_type'           => 'recenzja',
-                'posts_per_page'      => 5,
-                'no_found_rows'       => true,
+                'post_type'      => 'recenzja',
+                'posts_per_page' => 4,
+                'no_found_rows'  => true,
             ));
             if ($rj_reviews->have_posts()) :
-                while ($rj_reviews->have_posts()) : $rj_reviews->the_post();
-                    get_template_part('template-parts/card', 'review');
+                while ($rj_reviews->have_posts()) :
+                    $rj_reviews->the_post();
+                    get_template_part('template-parts/review-cover', null, array('variant' => 'shelf'));
                 endwhile;
                 wp_reset_postdata();
             else :
