@@ -5,11 +5,20 @@
     <?php while (have_posts()) : the_post(); ?>
         <?php $rj_cat = rj_primary_category(); ?>
         <article <?php post_class('article'); ?>>
-            <?php rj_breadcrumb(array(
+            <?php
+            $rj_crumbs = array(
                 array('label' => __('Start', 'rozgadana-jana'), 'url' => home_url('/')),
-                array('label' => $rj_cat instanceof WP_Term ? $rj_cat->name : __('Przemyślenia', 'rozgadana-jana'), 'url' => $rj_cat instanceof WP_Term ? get_category_link($rj_cat) : home_url('/blog/')),
-                array('label' => get_the_title(), 'url' => null),
-            )); ?>
+                array('label' => __('Przemyślenia', 'rozgadana-jana'), 'url' => home_url('/blog/')),
+            );
+            if ($rj_cat instanceof WP_Term) {
+                $rj_crumbs[] = array(
+                    'label' => $rj_cat->name,
+                    'url'   => get_category_link($rj_cat),
+                );
+            }
+            $rj_crumbs[] = array('label' => get_the_title(), 'url' => null);
+            rj_breadcrumb($rj_crumbs);
+            ?>
 
             <?php if ($rj_cat instanceof WP_Term) : ?>
                 <a class="article__cat" href="<?php echo esc_url(get_category_link($rj_cat)); ?>"><?php echo esc_html($rj_cat->name); ?></a>

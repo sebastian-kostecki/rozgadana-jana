@@ -5,6 +5,7 @@
     <header class="page-head">
         <?php rj_breadcrumb(array(
             array('label' => __('Start', 'rozgadana-jana'), 'url' => home_url('/')),
+            array('label' => __('Przemyślenia', 'rozgadana-jana'), 'url' => home_url('/blog/')),
             array('label' => single_cat_title('', false), 'url' => null),
         )); ?>
         <p class="eyebrow"><?php esc_html_e('Kategoria', 'rozgadana-jana'); ?></p>
