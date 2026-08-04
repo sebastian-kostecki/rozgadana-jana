@@ -4,6 +4,23 @@
 
     <?php get_template_part('template-parts/brand-bar'); ?>
 
+    <?php
+    $rj_featured_id = 0;
+    $rj_featured = new WP_Query(array(
+        'posts_per_page'      => 1,
+        'ignore_sticky_posts' => true,
+        'no_found_rows'       => true,
+    ));
+    if ($rj_featured->have_posts()) :
+        while ($rj_featured->have_posts()) :
+            $rj_featured->the_post();
+            $rj_featured_id = (int) get_the_ID();
+            get_template_part('template-parts/featured-post');
+        endwhile;
+        wp_reset_postdata();
+    endif;
+    ?>
+
     <section class="section" aria-labelledby="thoughts-h">
         <div class="section__head">
             <h2 id="thoughts-h"><?php esc_html_e('Przemyślenia', 'rozgadana-jana'); ?></h2>

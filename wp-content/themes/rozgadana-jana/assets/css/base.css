@@ -10,6 +10,10 @@
 	--purple: #6C2BD9;
 	--purple-deep: #4C1D95;
 	--purple-soft: #B98EE0;
+	/* Tints for text on --purple-deep surfaces */
+	--on-purple-strong: #D9C2F5;
+	--on-purple: #E4D8F5;
+	--on-purple-muted: #C9B4E8;
 
 	/* Text */
 	--ink: #1B1327;
