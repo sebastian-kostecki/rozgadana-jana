@@ -3,7 +3,7 @@
 <main id="main" class="site-main container">
     <?php while (have_posts()) : the_post(); ?>
         <article <?php post_class('article'); ?>>
-            <h1><?php the_title(); ?></h1>
+            <h1 class="article__title"><?php the_title(); ?></h1>
             <div class="article__content"><?php the_content(); ?></div>
         </article>
     <?php endwhile; ?>

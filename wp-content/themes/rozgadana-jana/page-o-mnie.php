@@ -2,19 +2,29 @@
 <?php get_header(); ?>
 <main id="main" class="site-main container">
     <?php while (have_posts()) : the_post(); ?>
-        <header class="page-head">
-            <p class="eyebrow"><?php esc_html_e('O mnie', 'rozgadana-jana'); ?></p>
-            <h1><?php the_title(); ?></h1>
-        </header>
-        <div class="about">
-            <img class="about__photo"
-                 src="<?php echo esc_url(get_theme_file_uri('assets/images/author.jpg')); ?>"
-                 alt="<?php esc_attr_e('Autorka bloga Rozgadana Jana', 'rozgadana-jana'); ?>">
-            <div class="about__text article__content">
-                <?php the_content(); ?>
-                <div class="site-footer__social" style="margin-top:18px"><?php rj_social_links(); ?></div>
+        <header class="about-head">
+            <?php if (has_post_thumbnail()) : ?>
+                <?php the_post_thumbnail('rj-cover', array('class' => 'about-head__photo', 'alt' => esc_attr__('Autorka bloga Rozgadana Jana', 'rozgadana-jana'))); ?>
+            <?php else : ?>
+                <img class="about-head__photo"
+                     src="<?php echo esc_url(get_theme_file_uri('assets/images/author.jpg')); ?>"
+                     alt="<?php esc_attr_e('Autorka bloga Rozgadana Jana', 'rozgadana-jana'); ?>">
+            <?php endif; ?>
+            <div class="about-head__text">
+                <p class="eyebrow"><?php esc_html_e('Poznaj mnie', 'rozgadana-jana'); ?></p>
+                <h1 class="article__title"><?php the_title(); ?></h1>
+                <?php if (has_excerpt()) : ?>
+                    <p class="about-head__lead"><?php echo esc_html(get_the_excerpt()); ?></p>
+                <?php endif; ?>
+                <div class="about-head__links">
+                    <?php rj_social_links(); ?>
+                </div>
             </div>
-        </div>
+        </header>
+
+        <article <?php post_class('article'); ?>>
+            <div class="article__content"><?php the_content(); ?></div>
+        </article>
     <?php endwhile; ?>
 </main>
 <?php get_footer(); ?>
