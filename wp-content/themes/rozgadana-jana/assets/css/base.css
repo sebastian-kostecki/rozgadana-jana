@@ -1,0 +1,110 @@
+/* Design tokens, reset and base typography.
+   Loaded first; components.css and content.css depend on these properties. */
+:root {
+	/* Surfaces */
+	--bg: #FDFCFB;
+	--surface: #FFFFFF;
+	--lilac: #F3ECFC;
+
+	/* Accent */
+	--purple: #6C2BD9;
+	--purple-deep: #4C1D95;
+	--purple-soft: #B98EE0;
+
+	/* Text */
+	--ink: #1B1327;
+	--text: #3A3545;
+	--text-read: #332E3C;
+	--muted: #6E6579;
+
+	/* Lines */
+	--line: #E9E5EE;
+	--line-strong: #DCD3E6;
+
+	/* Shape */
+	--radius-sm: 10px;
+	--radius: 14px;
+	--radius-lg: 18px;
+	--radius-pill: 999px;
+	--shadow: 0 8px 20px rgba(46, 26, 77, .18);
+
+	/* Metrics */
+	--container: 1120px;
+	--reading: 680px;
+	--section-gap: 48px;
+
+	/* Type */
+	--font-sans: 'Manrope', system-ui, -apple-system, sans-serif;
+	--font-serif: 'Lora', Georgia, 'Times New Roman', serif;
+
+	/* Legacy aliases so the not-yet-converted rules in components.css and
+	   content.css keep resolving. Removed in Task 13. */
+	--bg-alt: var(--surface);
+	--purple-vivid: var(--purple);
+	--lavender: var(--lilac);
+	--border: var(--line);
+	--border-strong: var(--line-strong);
+	--hero-grad: linear-gradient(135deg, #E4D2F5 0%, #EFE1FA 55%, #F7F1FD 100%);
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+	margin: 0;
+	background: var(--bg);
+	color: var(--text);
+	font-family: var(--font-sans);
+	font-size: 16px;
+	line-height: 1.7;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--purple); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+h1, h2, h3, h4 {
+	color: var(--ink);
+	margin: 0 0 .5em;
+	font-weight: 700;
+	line-height: 1.2;
+	letter-spacing: -.01em;
+}
+
+:focus-visible {
+	outline: 2px solid var(--purple);
+	outline-offset: 2px;
+	border-radius: 4px;
+}
+
+.container {
+	max-width: var(--container);
+	margin: 0 auto;
+	padding: 0 24px;
+}
+
+.section { margin: var(--section-gap) 0; }
+
+.eyebrow {
+	font: 700 12px/1 var(--font-sans);
+	letter-spacing: .14em;
+	text-transform: uppercase;
+	color: var(--purple);
+	margin: 0;
+}
+
+.skip-link { position: absolute; left: -9999px; }
+.skip-link:focus {
+	left: 16px;
+	top: 16px;
+	background: var(--surface);
+	padding: 10px 14px;
+	border-radius: var(--radius-sm);
+	z-index: 100;
+}
+
+@media (max-width: 600px) {
+	:root { --section-gap: 32px; }
+}
