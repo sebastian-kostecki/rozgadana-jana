@@ -15,8 +15,8 @@
             <img class="site-brand__logo"
                  src="<?php echo esc_url(get_theme_file_uri('assets/images/logo-round.jpg')); ?>"
                  alt=""
-                 width="36"
-                 height="36">
+                 width="40"
+                 height="40">
             <span class="site-brand__name"><?php bloginfo('name'); ?></span>
         </a>
         <button class="nav-toggle" aria-expanded="false" aria-controls="primary-menu">

@@ -83,7 +83,7 @@ function rj_breadcrumb(array $items): void {
 }
 
 /**
- * Render social links from theme mods (fallback to # if unset).
+ * Render social links as outline pills.
  */
 function rj_social_links(): void {
     $links = array(
@@ -91,7 +91,11 @@ function rj_social_links(): void {
         'Facebook'  => get_theme_mod('rj_facebook_url', 'https://facebook.com/'),
     );
     foreach ($links as $label => $url) {
-        printf('<a href="%s" rel="noopener" target="_blank">%s</a>', esc_url($url), esc_html($label));
+        printf(
+            '<a class="pill" href="%s" rel="noopener" target="_blank">%s</a>',
+            esc_url($url),
+            esc_html($label)
+        );
     }
 }
 
