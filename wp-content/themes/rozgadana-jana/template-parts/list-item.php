@@ -44,11 +44,11 @@ if ($rj_is_review) {
                 <a class="row-item__cat" href="<?php echo esc_url($rj_label_url); ?>"><?php echo esc_html($rj_label); ?></a>
                 <span aria-hidden="true"> · </span>
             <?php endif; ?>
+            <span class="row-item__date-inline"><?php echo esc_html(get_the_date()); ?><span aria-hidden="true"> · </span></span>
             <?php
             echo esc_html(sprintf(
-                /* translators: 1: publication date, 2: reading time in minutes */
-                __('%1$s · %2$d min', 'rozgadana-jana'),
-                get_the_date(),
+                /* translators: %d: reading time in minutes */
+                __('%d min', 'rozgadana-jana'),
                 $rj_minutes
             ));
             ?>

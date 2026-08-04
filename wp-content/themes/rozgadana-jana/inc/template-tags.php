@@ -10,6 +10,7 @@ declare(strict_types=1);
 defined('ABSPATH') || exit;
 
 require_once dirname(__DIR__) . '/tests/primary-category-fn.php';
+require_once dirname(__DIR__) . '/tests/year-separator-fn.php';
 
 /**
  * Reading time in minutes for the current post content (~200 wpm, min 1).

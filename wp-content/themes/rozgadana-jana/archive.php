@@ -13,15 +13,6 @@
         <?php endif; ?>
     </header>
 
-    <?php if (have_posts()) : ?>
-        <div class="row-list">
-            <?php while (have_posts()) : the_post(); ?>
-                <?php get_template_part('template-parts/card', 'post'); ?>
-            <?php endwhile; ?>
-        </div>
-        <?php the_posts_pagination(array('mid_size' => 1, 'prev_text' => '←', 'next_text' => '→')); ?>
-    <?php else : ?>
-        <?php get_template_part('template-parts/content', 'none'); ?>
-    <?php endif; ?>
+    <?php get_template_part('template-parts/post-list'); ?>
 </main>
 <?php get_footer(); ?>

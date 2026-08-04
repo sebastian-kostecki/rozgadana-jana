@@ -6,19 +6,28 @@
             array('label' => __('Start', 'rozgadana-jana'), 'url' => home_url('/')),
             array('label' => __('Przemyślenia', 'rozgadana-jana'), 'url' => null),
         )); ?>
-        <h1><?php esc_html_e('Przemyślenia', 'rozgadana-jana'); ?></h1>
-        <p class="lead"><?php esc_html_e('Wpisy o wierze, codzienności i tym, co naprawdę ważne.', 'rozgadana-jana'); ?></p>
+        <p class="eyebrow"><?php esc_html_e('Przemyślenia', 'rozgadana-jana'); ?></p>
+        <h1><?php esc_html_e('Wszystkie wpisy', 'rozgadana-jana'); ?></h1>
+        <p class="lead"><?php esc_html_e('Wszystko, co napisałam — od najnowszego. Jeśli szukasz konkretnego tematu, zawęź listę filtrem poniżej.', 'rozgadana-jana'); ?></p>
     </header>
 
-    <?php if (have_posts()) : ?>
-        <div class="row-list">
-            <?php while (have_posts()) : the_post(); ?>
-                <?php get_template_part('template-parts/card', 'post'); ?>
-            <?php endwhile; ?>
-        </div>
-        <?php the_posts_pagination(array('mid_size' => 1, 'prev_text' => '←', 'next_text' => '→')); ?>
-    <?php else : ?>
-        <?php get_template_part('template-parts/content', 'none'); ?>
-    <?php endif; ?>
+    <div class="filter">
+        <a class="filter__chip is-active" href="<?php echo esc_url(home_url('/blog/')); ?>" aria-current="true"><?php esc_html_e('Wszystko', 'rozgadana-jana'); ?></a>
+        <?php
+        $rj_chips = array(
+            'codziennosc-z-bogiem'    => __('Codzienność z Bogiem', 'rozgadana-jana'),
+            'macierzynstwo-i-rodzina' => __('Macierzyństwo i rodzina', 'rozgadana-jana'),
+        );
+        foreach ($rj_chips as $rj_slug => $rj_label) :
+            $rj_term = get_category_by_slug($rj_slug);
+            if (!$rj_term instanceof WP_Term) {
+                continue;
+            }
+            ?>
+            <a class="filter__chip" href="<?php echo esc_url(get_category_link($rj_term)); ?>"><?php echo esc_html($rj_label); ?></a>
+        <?php endforeach; ?>
+    </div>
+
+    <?php get_template_part('template-parts/post-list'); ?>
 </main>
 <?php get_footer(); ?>
