@@ -1,6 +1,6 @@
 <?php
 /**
- * Template tags: reading time, breadcrumb, category color, socials.
+ * Template tags: reading time, post meta, primary category, breadcrumb, socials.
  *
  * @package RozgadanaJana
  */
@@ -55,16 +55,6 @@ function rj_primary_category(int $post_id = 0): ?WP_Term {
 }
 
 /**
- * CSS modifier class for a post card based on its primary category slug.
- */
-function rj_post_card_modifier(int $post_id): string {
-    $cat = rj_primary_category($post_id);
-    return in_array($cat->slug ?? '', rj_family_category_slugs(), true)
-        ? 'post-card--family'
-        : '';
-}
-
-/**
  * Simple breadcrumb. $items: array of ['label' => string, 'url' => string|null].
  */
 function rj_breadcrumb(array $items): void {
@@ -97,19 +87,6 @@ function rj_social_links(): void {
             esc_url($url),
             esc_html($label)
         );
-    }
-}
-
-/**
- * Social links rendered as hero pills.
- */
-function rj_social_links_pills(): void {
-    $links = array(
-        'Instagram' => get_theme_mod('rj_instagram_url', 'https://instagram.com/'),
-        'Facebook'  => get_theme_mod('rj_facebook_url', 'https://facebook.com/'),
-    );
-    foreach ($links as $label => $url) {
-        printf('<a class="pill" href="%s" rel="noopener" target="_blank">%s</a>', esc_url($url), esc_html($label));
     }
 }
 

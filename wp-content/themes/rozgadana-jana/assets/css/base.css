@@ -42,15 +42,6 @@
 	/* Type */
 	--font-sans: 'Manrope', system-ui, -apple-system, sans-serif;
 	--font-serif: 'Lora', Georgia, 'Times New Roman', serif;
-
-	/* Legacy aliases so the not-yet-converted rules in components.css and
-	   content.css keep resolving. Removed in Task 13. */
-	--bg-alt: var(--surface);
-	--purple-vivid: var(--purple);
-	--lavender: var(--lilac);
-	--border: var(--line);
-	--border-strong: var(--line-strong);
-	--hero-grad: linear-gradient(135deg, #E4D2F5 0%, #EFE1FA 55%, #F7F1FD 100%);
 }
 
 * { box-sizing: border-box; }

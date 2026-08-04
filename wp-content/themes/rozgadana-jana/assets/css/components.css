@@ -62,14 +62,6 @@
 	cursor: pointer;
 }
 
-/* Hero */
-.hero{margin:26px 0;padding:34px 40px;background:var(--hero-grad);border:1px solid var(--border-strong);border-radius:var(--radius-lg);
-  display:grid;grid-template-columns:auto 1fr;align-items:center;gap:38px;}
-.hero__logo{width:220px;height:220px;aspect-ratio:1/1;border-radius:var(--radius-lg);object-fit:cover;box-shadow:var(--shadow);flex:none;}
-.hero h1{font-size:28px;color:var(--ink);margin:.3em 0;}
-.hero p{color:#4D4359;max-width:52ch;margin:0;}
-.hero__actions{margin-top:16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
-
 /* Section heads */
 .section__head {
 	display: flex;

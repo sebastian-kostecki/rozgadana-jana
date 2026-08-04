@@ -1,9 +1,9 @@
 # Baseline — punkt startowy dalszej pracy
 
-**Data:** 2026-07-23  
-**Commit:** `25a98d1` (`docs: record accepted theme baseline for further work`)  
-**Gałąź bazowa:** `development` (zmergowana z `dev/new-design-improvements`)  
-**Motyw:** `wp-content/themes/rozgadana-jana` v0.1.0
+**Data:** 2026-08-04  
+**Commit:** `213cce9` (Task 13: editorial redesign cleanup)  
+**Gałąź bazowa:** `feat/editorial-redesign`  
+**Motyw:** `wp-content/themes/rozgadana-jana` v0.2.0
 
 Ten dokument opisuje **zaakceptowany stan kodu**, od którego idą kolejne zmiany. Nie cofaj się poniżej tej linii bez świadomej decyzji.
 
@@ -15,21 +15,26 @@ Ten dokument opisuje **zaakceptowany stan kodu**, od którego idą kolejne zmian
 - Docker Compose + `Makefile` + `docs/LOCAL-DEV.md`
 - Workflow deploy: `docs/DEPLOY.md`, motyw: `docs/THEME-DEPLOY.md`
 
-### Motyw (klasyczny PHP)
-- Szablony: `front-page`, `single`, `archive`, `category`, `archive-recenzja`, `single-recenzja`, `page`, `page-o-mnie`, `search`, `404`
-- Części: `hero`, `card-post`, `card-review`, `content-none`
-- Design system w `assets/css/theme.css` (tokeny purple, karty, filtr kategorii)
-- Tag helpery w `inc/` (czas czytania, breadcrumb, kolor kategorii, socials)
-- Test: `tests/test-reading-time.php`, `tests/test-primary-category.php`
+### Motyw (klasyczny PHP) — v0.2.0
+- Szablony: `front-page`, `single`, `archive`, `category`, `archive-recenzja`, `single-recenzja`, `page`, `page-o-mnie`, `search`, `404`, `home`, `index`
+- Części: `brand-bar`, `featured-post`, `list-item`, `review-cover`, `about-strip`, `post-list`, `content-none`
+- CSS w trzech plikach: `base.css` (tokeny), `components.css` (struktura), `content.css` (typografia)
+- Typografia: Lora w treści i tytułach, Manrope w interfejsie
+- Tag helpery w `inc/` (czas czytania, post meta, primary category, breadcrumb, socials)
+- Testy: `test-reading-time.php`, `test-primary-category.php`, `test-year-separator.php`
 
 ### Recenzje (mu-plugin)
 - `wp-content/mu-plugins/rj-reviews.php` + `rj-reviews/`
 - CPT `recenzja`, archiwum `/ksiazki/`, meta **Autor książki**
 
 ### Treść / UX w baseline
-- Strona główna: hero + filtr kategorii (JS bez reload) + sekcje Przemyślenia i Recenzje
-- Karty postów i recenzji jako **osobne** template parts (`card-post` / `card-review`) — nie wspólny row-card
-- Ulepszenia kart / metadata z commitów po QA (`e35ce33` Cards, `477157e` review card)
+- Strona główna: brand bar + featured post + filtr kategorii (JS bez reload) + sekcje Przemyślenia i Recenzje + about strip
+- Listy postów jako typograficzne wiersze (`list-item`), nie karty
+- Recenzje na archiwum jako siatka okładek (`review-cover` w `cover-grid`)
+- Filtr kategorii na stronie głównej nie dotyczy wyróżnionego wpisu — **to zamierzone zachowanie**
+- Drop cap na pierwszym akapicie, 5 elementów w kolorze fioletowym, progress bar na single
+- Spec: `docs/superpowers/specs/2026-08-04-editorial-redesign-design.md`
+- Plan: `docs/superpowers/plans/2026-08-04-editorial-redesign.md`
 
 ---
 
@@ -37,8 +42,7 @@ Ten dokument opisuje **zaakceptowany stan kodu**, od którego idą kolejne zmian
 
 | Element | Gdzie | Uwaga |
 |---------|--------|--------|
-| Unify thoughts + reviews list (wspólny `card-row`, listy zamiast gridów) | gałąź `feat/unify-list-layout`, worktree `.worktrees/unify-list` | Zaimplementowane, **odrzuczone wizualnie** — nie jest częścią baseline |
-| Spec/plan unify | `docs/superpowers/specs/2026-07-08-…`, `docs/superpowers/plans/2026-07-08-…` | Tylko dokumentacja; kod z planu nie wchodzi do baseline |
+| Hero + card-post / card-review / card-row | Usunięte w Task 13 | Odrzucony eksperyment. Zastąpione przez editorial redesign (brand-bar, featured-post, list-item, review-cover). `card-row` przestaje być otwartą sprawą. |
 
 ---
 
