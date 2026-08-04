@@ -69,11 +69,6 @@
 .hero h1{font-size:28px;color:var(--ink);margin:.3em 0;}
 .hero p{color:#4D4359;max-width:52ch;margin:0;}
 .hero__actions{margin-top:16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
-/* Section headers */
-.section{margin:34px 0;}
-.section__head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px;gap:12px;}
-.section__head h2{font-size:21px;margin:0;}
-.section__head .more{font-weight:600;font-size:13px;color:var(--purple-deep);}
 
 /* Section heads */
 .section__head {
