@@ -61,6 +61,7 @@ for t in wp-content/themes/rozgadana-jana/tests/test-*.php; do php "$t" || exit 
 | `template-parts/brand-bar.php` | Slim blog identity row above the featured post |
 | `template-parts/featured-post.php` | Newest post on the deep-purple stage |
 | `template-parts/list-item.php` | One typographic row in any post list (`home` and `archive` variants) |
+| `template-parts/post-list.php` | Renders the main query as rows, optionally grouped by year — shared by `/blog/`, categories, other archives and search |
 | `template-parts/review-cover.php` | One book cover cell (`shelf` and `grid` variants) |
 | `template-parts/about-strip.php` | "Kto tu pisze" lilac strip on the front page |
 | `tests/year-separator-fn.php` | Pure helper deciding when a year heading is due |
@@ -1740,6 +1741,7 @@ Converts `/blog/`, category archives and search to the row component, swapping o
 **Files:**
 - Create: `wp-content/themes/rozgadana-jana/tests/year-separator-fn.php`
 - Create: `wp-content/themes/rozgadana-jana/tests/test-year-separator.php`
+- Create: `wp-content/themes/rozgadana-jana/template-parts/post-list.php`
 - Modify: `wp-content/themes/rozgadana-jana/inc/template-tags.php`
 - Modify: `wp-content/themes/rozgadana-jana/home.php`
 - Modify: `wp-content/themes/rozgadana-jana/archive.php`
@@ -1753,6 +1755,10 @@ Converts `/blog/`, category archives and search to the row component, swapping o
 - Produces: `rj_needs_year_heading(?int $previous_year, int $current_year): bool` in
   `tests/year-separator-fn.php`, required from `inc/template-tags.php` the same way
   `primary-category-fn.php` already is.
+- Produces: `template-parts/post-list.php`, called as
+  `get_template_part('template-parts/post-list', null, array('group_by_year' => true))`.
+  It runs the main query itself, so callers must not open their own loop. Four templates share
+  it, which is why the loop lives here rather than being repeated in each one.
 
 - [ ] **Step 1: Write the failing test**
 
@@ -1897,7 +1903,57 @@ Append:
 }
 ```
 
-- [ ] **Step 8: Rewrite `home.php`**
+- [ ] **Step 8: Create `template-parts/post-list.php`**
+
+Four templates need the same list, so the loop lives in one part rather than being copied into
+each of them:
+
+```php
+<?php declare(strict_types=1); ?>
+<?php
+/**
+ * Renders the main query as typographic rows, with pagination and an empty state.
+ *
+ * Callers must not open their own loop — this part runs the main query itself.
+ *
+ * Args:
+ * - group_by_year: bool — print a year heading whenever the year changes. Default true.
+ *   Pass false where results are not in chronological order (search).
+ *
+ * @var array{group_by_year?: bool}|null $args
+ */
+$args           = is_array($args ?? null) ? $args : array();
+$rj_group_years = (bool) ($args['group_by_year'] ?? true);
+?>
+<?php if (have_posts()) : ?>
+    <div class="row-list row-list--archive">
+        <?php
+        $rj_prev_year = null;
+        while (have_posts()) :
+            the_post();
+
+            if ($rj_group_years) {
+                $rj_year = (int) get_the_date('Y');
+                if (rj_needs_year_heading($rj_prev_year, $rj_year)) {
+                    printf(
+                        '<p class="year-heading"><span class="year-heading__label">%s</span><span class="year-heading__rule" aria-hidden="true"></span></p>',
+                        esc_html((string) $rj_year)
+                    );
+                    $rj_prev_year = $rj_year;
+                }
+            }
+
+            get_template_part('template-parts/list-item', null, array('variant' => 'archive'));
+        endwhile;
+        ?>
+    </div>
+    <?php the_posts_pagination(array('mid_size' => 1, 'prev_text' => '←', 'next_text' => '→')); ?>
+<?php else : ?>
+    <?php get_template_part('template-parts/content', 'none'); ?>
+<?php endif; ?>
+```
+
+- [ ] **Step 9: Rewrite `home.php`**
 
 Full replacement:
 
@@ -1932,93 +1988,40 @@ Full replacement:
         <?php endforeach; ?>
     </div>
 
-    <?php if (have_posts()) : ?>
-        <div class="row-list row-list--archive">
-            <?php
-            $rj_prev_year = null;
-            while (have_posts()) :
-                the_post();
-                $rj_year = (int) get_the_date('Y');
-                if (rj_needs_year_heading($rj_prev_year, $rj_year)) :
-                    ?>
-                    <p class="year-heading">
-                        <span class="year-heading__label"><?php echo esc_html((string) $rj_year); ?></span>
-                        <span class="year-heading__rule" aria-hidden="true"></span>
-                    </p>
-                    <?php
-                    $rj_prev_year = $rj_year;
-                endif;
-                get_template_part('template-parts/list-item', null, array('variant' => 'archive'));
-            endwhile;
-            ?>
-        </div>
-        <?php the_posts_pagination(array('mid_size' => 1, 'prev_text' => '←', 'next_text' => '→')); ?>
-    <?php else : ?>
-        <?php get_template_part('template-parts/content', 'none'); ?>
-    <?php endif; ?>
+    <?php get_template_part('template-parts/post-list'); ?>
 </main>
 <?php get_footer(); ?>
 ```
 
-- [ ] **Step 9: Rewrite the loop in `category.php`**
+- [ ] **Step 10: Swap the loop in `category.php`**
 
-Keep the existing `page-head` and chip markup (the chips already mark the active category).
-Replace the `if (have_posts())` block with the same year-grouped list as `home.php`:
-
-```php
-    <?php if (have_posts()) : ?>
-        <div class="row-list row-list--archive">
-            <?php
-            $rj_prev_year = null;
-            while (have_posts()) :
-                the_post();
-                $rj_year = (int) get_the_date('Y');
-                if (rj_needs_year_heading($rj_prev_year, $rj_year)) :
-                    ?>
-                    <p class="year-heading">
-                        <span class="year-heading__label"><?php echo esc_html((string) $rj_year); ?></span>
-                        <span class="year-heading__rule" aria-hidden="true"></span>
-                    </p>
-                    <?php
-                    $rj_prev_year = $rj_year;
-                endif;
-                get_template_part('template-parts/list-item', null, array('variant' => 'archive'));
-            endwhile;
-            ?>
-        </div>
-        <?php the_posts_pagination(array('mid_size' => 1, 'prev_text' => '←', 'next_text' => '→')); ?>
-    <?php else : ?>
-        <?php get_template_part('template-parts/content', 'none'); ?>
-    <?php endif; ?>
-```
-
-Also add the eyebrow class fix — in `category.php` the existing `<p class="eyebrow">Kategoria</p>`
-stays as is.
-
-- [ ] **Step 10: Rewrite the loop in `archive.php`**
-
-Replace its `if (have_posts())` block with exactly the same year-grouped list shown in Step 9.
-`archive.php` keeps its own `page-head` and has no chips.
-
-- [ ] **Step 11: Rewrite the loop in `search.php`**
-
-Search results mix posts and reviews and are ordered by relevance, not date, so year groups
-would be meaningless here. Use the archive row without grouping:
+Keep the existing `page-head` and chip markup — the chips already mark the active category, and
+the `<p class="eyebrow">Kategoria</p>` line stays as is. Replace the whole
+`if (have_posts()) … endif;` block with one call:
 
 ```php
-    <?php if (have_posts()) : ?>
-        <div class="row-list row-list--archive">
-            <?php while (have_posts()) : the_post(); ?>
-                <?php get_template_part('template-parts/list-item', null, array('variant' => 'archive')); ?>
-            <?php endwhile; ?>
-        </div>
-        <?php the_posts_pagination(array('mid_size' => 1, 'prev_text' => '←', 'next_text' => '→')); ?>
-    <?php else : ?>
-        <?php get_template_part('template-parts/content', 'none'); ?>
-    <?php endif; ?>
+    <?php get_template_part('template-parts/post-list'); ?>
 ```
 
-- [ ] **Step 12: Restyle `page-head` and pagination in `components.css`**
+- [ ] **Step 11: Swap the loop in `archive.php`**
+
+`archive.php` keeps its own `page-head` and has no chips. Replace its whole
+`if (have_posts()) … endif;` block with the same call:
+
+```php
+    <?php get_template_part('template-parts/post-list'); ?>
+```
+
+- [ ] **Step 12: Swap the loop in `search.php`**
+
+Search results mix posts and reviews and come back ordered by relevance rather than date, so
+year headings would group nothing meaningful. Turn the grouping off:
+
+```php
+    <?php get_template_part('template-parts/post-list', null, array('group_by_year' => false)); ?>
+```
+
+- [ ] **Step 13: Restyle `page-head` and pagination in `components.css`**
 
 Delete the moved `/* Archive / page head */` and `/* Pagination */` blocks and append:
 
@@ -2061,7 +2064,7 @@ Delete the moved `/* Archive / page head */` and `/* Pagination */` blocks and a
 }
 ```
 
-- [ ] **Step 13: Run all tests and lint**
+- [ ] **Step 14: Run all tests and lint**
 
 Run:
 
@@ -2072,7 +2075,7 @@ find wp-content/themes/rozgadana-jana -name '*.php' -print0 | xargs -0 -n1 php -
 
 Expected: `OK` from all three test scripts and `No syntax errors detected` for every file.
 
-- [ ] **Step 14: Visual check**
+- [ ] **Step 15: Visual check**
 
 Visit `http://localhost:8080/blog/`, a category archive, and `/?s=modlitwa`. Confirm:
 
@@ -2085,15 +2088,16 @@ Visit `http://localhost:8080/blog/`, a category archive, and `/?s=modlitwa`. Con
   category, and no year headings appear on the search page.
 - Pagination pills sit centred, with the current page filled purple.
 
-- [ ] **Step 15: Commit**
+- [ ] **Step 16: Commit**
 
 ```bash
-git add wp-content/themes/rozgadana-jana/tests wp-content/themes/rozgadana-jana/inc/template-tags.php wp-content/themes/rozgadana-jana/home.php wp-content/themes/rozgadana-jana/archive.php wp-content/themes/rozgadana-jana/category.php wp-content/themes/rozgadana-jana/search.php wp-content/themes/rozgadana-jana/template-parts/list-item.php wp-content/themes/rozgadana-jana/assets/css/components.css
+git add wp-content/themes/rozgadana-jana/tests wp-content/themes/rozgadana-jana/inc/template-tags.php wp-content/themes/rozgadana-jana/home.php wp-content/themes/rozgadana-jana/archive.php wp-content/themes/rozgadana-jana/category.php wp-content/themes/rozgadana-jana/search.php wp-content/themes/rozgadana-jana/template-parts wp-content/themes/rozgadana-jana/assets/css/components.css
 git commit -m "feat(theme): year-grouped typographic archive lists
 
 Ordinals mean nothing across a paginated archive, so rows carry a date and
-group under a year instead. Search skips the grouping because it is ordered
-by relevance, and labels reviews explicitly since they have no category."
+group under a year instead. Four templates share one list part rather than
+repeating the loop. Search turns the grouping off because it is ordered by
+relevance, and labels reviews explicitly since they have no category."
 ```
 
 ---
