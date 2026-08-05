@@ -25,7 +25,7 @@ if ($rj_bio === '') {
     $rj_bio = __('Żona, mama, katoliczka, która nie udaje, że ma wszystko poukładane. Piszę o wierze bez patosu i o rodzinie bez filtra.', 'rozgadana-jana');
 }
 ?>
-<section class="about-strip" aria-labelledby="about-strip-title">
+<section class="about-strip" id="kto-tu-pisze" aria-labelledby="about-strip-title">
     <img class="about-strip__photo"
          src="<?php echo esc_url($rj_photo); ?>"
          alt="<?php esc_attr_e('Autorka bloga Rozgadana Jana', 'rozgadana-jana'); ?>"

@@ -4,8 +4,6 @@
  * Slim blog identity row shown above the featured post on the front page.
  * Replaces the former gradient hero.
  */
-$rj_about     = get_page_by_path('o-mnie');
-$rj_about_url = $rj_about instanceof WP_Post ? get_permalink($rj_about) : home_url('/o-mnie/');
 ?>
 <section class="brand-bar" aria-labelledby="brand-bar-name">
     <img class="brand-bar__logo"
@@ -18,7 +16,7 @@ $rj_about_url = $rj_about instanceof WP_Post ? get_permalink($rj_about) : home_u
         <p class="brand-bar__tagline"><?php esc_html_e('O Bogu, o życiu, o rodzinie o sobie.', 'rozgadana-jana'); ?></p>
         <p class="brand-bar__intro"><?php esc_html_e('Piszę o tym, co dzieje się między poranną kawą a wieczorną modlitwą.', 'rozgadana-jana'); ?></p>
     </div>
-    <a class="brand-bar__link" href="<?php echo esc_url($rj_about_url); ?>">
+    <a class="brand-bar__link" href="#kto-tu-pisze">
         <?php esc_html_e('Poznaj mnie →', 'rozgadana-jana'); ?>
     </a>
 </section>
