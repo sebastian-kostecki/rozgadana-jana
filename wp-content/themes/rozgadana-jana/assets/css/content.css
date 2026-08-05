@@ -81,15 +81,6 @@
 }
 .article__content blockquote p { margin: 0; }
 
-/* Drop cap — only on posts and reviews, never on plain pages.
-   If an entry opens with an image or heading no cap renders, which is fine. */
-.article__content--dropcap > p:first-of-type::first-letter {
-	float: left;
-	font: 600 46px/.88 var(--font-serif);
-	color: var(--purple);
-	margin: 4px 9px 0 0;
-}
-
 /* Single review header — inside the reading column, one left edge with the body */
 .review-head {
 	display: flex;

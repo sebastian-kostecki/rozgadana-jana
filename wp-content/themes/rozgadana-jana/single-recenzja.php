@@ -27,7 +27,7 @@
                 </div>
             </header>
 
-            <div class="article__content article__content--dropcap"><?php the_content(); ?></div>
+            <div class="article__content"><?php the_content(); ?></div>
         </article>
 
         <nav class="post-nav" aria-label="<?php esc_attr_e('Nawigacja recenzji', 'rozgadana-jana'); ?>">
