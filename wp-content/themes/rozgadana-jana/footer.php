@@ -11,7 +11,7 @@
         ?>
         <div class="site-footer__bar">
             <div class="site-footer__copy">
-                <?php echo esc_html(sprintf('© %s #rozgadanajana', date('Y'))); ?>
+                <?php echo esc_html(sprintf('© %s #rozgadana_jana', date('Y'))); ?>
                 · <?php esc_html_e('O życiu, o sobie, o Bogu, o rodzinie', 'rozgadana-jana'); ?>
             </div>
             <div class="site-footer__social"><?php rj_social_links(); ?></div>
