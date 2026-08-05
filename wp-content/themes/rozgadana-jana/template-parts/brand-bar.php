@@ -7,10 +7,12 @@
 ?>
 <section class="brand-bar" aria-labelledby="brand-bar-name">
     <img class="brand-bar__logo"
-         src="<?php echo esc_url(get_theme_file_uri('assets/images/logo-round.jpg')); ?>"
+         src="<?php echo esc_url(rj_brand_logo_url()); ?>"
          alt=""
          width="72"
-         height="72">
+         height="72"
+         fetchpriority="high"
+         decoding="async">
     <div class="brand-bar__text">
         <h1 class="brand-bar__name" id="brand-bar-name"><?php bloginfo('name'); ?></h1>
         <p class="brand-bar__tagline"><?php echo esc_html(rj_short_tagline()); ?></p>

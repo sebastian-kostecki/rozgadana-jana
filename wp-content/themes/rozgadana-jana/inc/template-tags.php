@@ -20,6 +20,20 @@ function rj_author_image_url(): string {
 }
 
 /**
+ * Brand-bar logo URL: Site Identity custom logo, else theme fallback.
+ */
+function rj_brand_logo_url(): string {
+    $id = (int) get_theme_mod('custom_logo');
+    if ($id > 0) {
+        $src = wp_get_attachment_image_url($id, 'full');
+        if (is_string($src) && $src !== '') {
+            return $src;
+        }
+    }
+    return (string) get_theme_file_uri('assets/images/logo-round.jpg');
+}
+
+/**
  * Short brand tagline used in brand bar and footer.
  */
 function rj_short_tagline(): string {
