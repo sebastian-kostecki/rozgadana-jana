@@ -20,6 +20,7 @@
 	letter-spacing: -.02em;
 	text-decoration: none;
 }
+.site-brand__hash { color: var(--purple); }
 .site-brand:hover { text-decoration: none; color: var(--purple); }
 .main-nav ul {
 	list-style: none;
