@@ -126,6 +126,11 @@ extended, and `--shadow` is re-scoped to covers and the author photo only.
 
 ### 4.4 Accent discipline
 
+> **Superseded (2026-08-05):** Drop cap removed. On single post/review views purple appears
+> exactly **four** times — reading progress bar, category name, quote rule, prev/next titles.
+> See `docs/superpowers/specs/2026-08-05-remove-drop-cap-design.md`. The five-times rule and
+> drop-cap guidance below are historical.
+
 The rule that keeps the design from sliding back into "washed out": on the single-post
 view purple appears exactly five times — reading progress bar, category name, drop cap,
 quote rule, prev/next links. Nothing else is purple. Every occurrence therefore carries

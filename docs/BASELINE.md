@@ -32,7 +32,7 @@ Ten dokument opisuje **zaakceptowany stan kodu**, od którego idą kolejne zmian
 - Listy postów jako typograficzne wiersze (`list-item`), nie karty
 - Recenzje na archiwum jako siatka okładek (`review-cover` w `cover-grid`)
 - Filtr kategorii na stronie głównej nie dotyczy wyróżnionego wpisu — **to zamierzone zachowanie**
-- Drop cap na pierwszym akapicie, 5 elementów w kolorze fioletowym, progress bar na single
+- Progress bar na single; 4 elementy w kolorze fioletowym (progress bar, kategoria, cytat, prev/next) — bez drop capu (`docs/superpowers/specs/2026-08-05-remove-drop-cap-design.md`)
 - Spec: `docs/superpowers/specs/2026-08-04-editorial-redesign-design.md`
 - Plan: `docs/superpowers/plans/2026-08-04-editorial-redesign.md`
 
