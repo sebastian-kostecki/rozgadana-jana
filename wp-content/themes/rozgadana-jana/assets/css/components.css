@@ -185,6 +185,8 @@
 	text-decoration: none;
 }
 .pill:hover { text-decoration: none; border-color: var(--purple); color: var(--purple); }
+.pill--social { display: inline-flex; align-items: center; gap: 6px; }
+.pill--social svg { width: 14px; height: 14px; flex: none; }
 
 /* Primary action button */
 .btn {

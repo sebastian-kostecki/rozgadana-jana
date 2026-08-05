@@ -104,18 +104,32 @@ function rj_home_thoughts_query(string $filter_slug = '*', int $exclude_id = 0):
 }
 
 /**
- * Render social links as outline pills.
+ * Render social links as outline pills with icons.
  */
 function rj_social_links(): void {
     $links = array(
-        'Instagram' => get_theme_mod('rj_instagram_url', 'https://instagram.com/'),
-        'Facebook'  => get_theme_mod('rj_facebook_url', 'https://facebook.com/'),
+        'instagram' => array(
+            'label' => __('Instagram', 'rozgadana-jana'),
+            'url'   => get_theme_mod('rj_instagram_url', 'https://www.instagram.com/rozgadana_jana/'),
+        ),
+        'facebook'  => array(
+            'label' => __('Facebook', 'rozgadana-jana'),
+            'url'   => get_theme_mod('rj_facebook_url', 'https://www.facebook.com/rozgadanajana/'),
+        ),
     );
-    foreach ($links as $label => $url) {
+
+    foreach ($links as $slug => $link) {
+        $url = is_string($link['url']) ? trim($link['url']) : '';
+        if ($url === '') {
+            continue;
+        }
+
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- rj_icon() returns trusted hardcoded SVG; wp_kses strips viewBox.
         printf(
-            '<a class="pill" href="%s" rel="noopener" target="_blank">%s</a>',
+            '<a class="pill pill--social" href="%s" rel="noopener noreferrer" target="_blank">%s<span>%s</span></a>',
             esc_url($url),
-            esc_html($label)
+            rj_icon($slug),
+            esc_html($link['label'])
         );
     }
 }
