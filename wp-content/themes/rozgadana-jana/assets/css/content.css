@@ -1,0 +1,189 @@
+/* Reading typography for articles, reviews and pages.
+   Depends on tokens from base.css. */
+
+/* Reading progress bar */
+.reading-progress {
+	position: sticky;
+	top: 0;
+	z-index: 20;
+	height: 3px;
+	background: var(--track);
+}
+.reading-progress__value {
+	display: block;
+	height: 100%;
+	width: 0;
+	background: var(--purple);
+	transition: width .1s linear;
+}
+@media (prefers-reduced-motion: reduce) {
+	.reading-progress__value { transition: none; }
+}
+
+/* Article */
+.article {
+	max-width: var(--reading);
+	margin: 0 auto;
+	padding: 24px 0 8px;
+}
+.article__cat {
+	display: inline-block;
+	font: 700 11px/1 var(--font-sans);
+	letter-spacing: .14em;
+	text-transform: uppercase;
+	color: var(--purple);
+}
+.article__cat:hover { text-decoration: underline; }
+.article__title {
+	font: 600 clamp(28px, 4vw, 40px)/1.15 var(--font-serif);
+	color: var(--ink);
+	letter-spacing: 0;
+	margin: 12px 0 9px;
+}
+/* rj_post_meta() emits two bare spans (date, reading time) with no separator,
+   so the separator is supplied here rather than baked into the PHP. */
+.article__meta {
+	font: 500 13px/1 var(--font-sans);
+	color: var(--muted);
+	margin: 0 0 24px;
+}
+.article__meta span + span::before { content: " · "; }
+
+/* Body copy — the single biggest readability lever */
+.article__content {
+	font: 400 18px/1.8 var(--font-serif);
+	color: var(--text-read);
+}
+.article__content p { margin: 0 0 18px; }
+.article__content h2 {
+	font: 600 26px/1.3 var(--font-serif);
+	color: var(--ink);
+	letter-spacing: 0;
+	margin: 1.5em 0 .5em;
+}
+.article__content h3 {
+	font: 600 21px/1.35 var(--font-serif);
+	color: var(--ink);
+	letter-spacing: 0;
+	margin: 1.3em 0 .5em;
+}
+.article__content a { text-decoration: underline; }
+.article__content img { border-radius: var(--radius-sm); margin: 1.2em 0; }
+.article__content ul,
+.article__content ol { margin: 0 0 18px; padding-left: 24px; }
+.article__content li { margin-bottom: 8px; }
+.article__content blockquote {
+	border-left: 3px solid var(--purple);
+	margin: 1.4em 0;
+	padding: 2px 0 2px 18px;
+	font: italic 400 19px/1.65 var(--font-serif);
+	color: var(--purple-deep);
+}
+.article__content blockquote p { margin: 0; }
+
+/* Single review header — inside the reading column, one left edge with the body */
+.review-head {
+	display: flex;
+	gap: 22px;
+	align-items: flex-start;
+	margin: 4px 0 26px;
+	padding-bottom: 24px;
+	border-bottom: 1px solid var(--line);
+}
+.review-head__cover {
+	width: 118px;
+	flex: none;
+	aspect-ratio: 2 / 3;
+	border-radius: var(--radius-sm);
+	overflow: hidden;
+	background: linear-gradient(150deg, var(--purple-deep), var(--purple-soft));
+	box-shadow: var(--shadow);
+}
+.review-head__cover img { width: 100%; height: 100%; object-fit: cover; }
+.review-head__meta { flex: 1; min-width: 0; }
+.review-head__by {
+	font: 400 17px/1.4 var(--font-serif);
+	color: var(--purple-deep);
+	margin: 0 0 12px;
+}
+.review-head .article__title { font-size: clamp(24px, 3.2vw, 32px); }
+.review-head .article__meta { margin-bottom: 0; }
+
+@media (max-width: 640px) {
+	.review-head { flex-direction: column; gap: 18px; }
+}
+
+/* Prev/next */
+.post-nav {
+	max-width: var(--reading);
+	margin: 32px auto 0;
+	display: flex;
+	justify-content: space-between;
+	gap: 16px;
+	border-top: 1px solid var(--line);
+	padding-top: 20px;
+}
+.post-nav__link { max-width: 46%; }
+.post-nav__link--next { text-align: right; margin-left: auto; }
+.post-nav__label {
+	display: block;
+	font: 700 10px/1 var(--font-sans);
+	letter-spacing: .12em;
+	text-transform: uppercase;
+	color: var(--muted);
+	margin-bottom: 5px;
+}
+.post-nav__title {
+	font: 500 15px/1.35 var(--font-serif);
+	color: var(--purple-deep);
+}
+
+@media (max-width: 600px) {
+	.article__content { font-size: 17px; }
+	.article__title { margin-top: 10px; }
+}
+
+/* About page header */
+.about-head {
+	display: flex;
+	gap: 28px;
+	align-items: center;
+	max-width: var(--reading);
+	margin: 28px auto 8px;
+}
+.about-head__photo {
+	width: 172px;
+	height: 210px;
+	flex: none;
+	border-radius: var(--radius);
+	object-fit: cover;
+	box-shadow: var(--shadow);
+}
+.about-head__text { flex: 1; min-width: 0; }
+.about-head__bio {
+	font: 400 18px/1.7 var(--font-serif);
+	color: var(--text-read);
+	max-width: 48ch;
+}
+.about-head__bio > *:first-child { margin-top: 0; }
+.about-head__bio > *:last-child { margin-bottom: 0; }
+.about-head__bio p { margin: 0 0 1em; }
+.about-head .article__title { font-size: clamp(26px, 3.6vw, 34px); margin: 12px 0 12px; }
+
+/* Empty states (404, no results) */
+.empty {
+	max-width: var(--reading);
+	margin: 48px auto;
+	text-align: center;
+}
+.empty__lead {
+	font: 400 17px/1.7 var(--font-serif);
+	color: var(--text-read);
+	margin: 0 0 22px;
+}
+.empty .btn { margin-right: 8px; }
+
+@media (max-width: 700px) {
+	.about-head { flex-direction: column; align-items: flex-start; }
+	.about-head__photo { width: 140px; height: 172px; }
+}

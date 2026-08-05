@@ -1,0 +1,14 @@
+/*
+Theme Name: Rozgadana Jana
+Theme URI: https://rozgadanajana.pl/
+Author: Rozgadana Jana
+Description: Minimalist, modern, purple-toned classic theme for a Catholic blog about faith, family and books. Not configurable by design.
+Version: 0.2.5
+Requires at least: 6.0
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: rozgadana-jana
+*/
+
+/* Base styles live in assets/css/base.css, components.css, and content.css (enqueued). This file only carries the theme header. */
