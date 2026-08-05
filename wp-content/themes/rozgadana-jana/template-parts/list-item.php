@@ -4,16 +4,20 @@
  * One row in a post list. Must be called inside a loop.
  *
  * Args:
- * - variant: 'home' (two-digit ordinal) | 'archive' (date column). Default 'home'.
- * - index:   1-based position, used by the 'home' variant only. Default 0.
+ * - variant:    'home' (two-digit ordinal) | 'archive' (date column). Default 'home'.
+ * - index:      1-based position, used by the 'home' variant only. Default 0.
+ * - filter_for: Front-page filter pool slug ('*' or category slug). Empty = omit attr.
+ * - hidden:     Whether the row starts hidden (category pools). Default false.
  *
- * @var array{variant?: string, index?: int}|null $args
+ * @var array{variant?: string, index?: int, filter_for?: string, hidden?: bool}|null $args
  */
-$args        = is_array($args ?? null) ? $args : array();
-$rj_variant  = (string) ($args['variant'] ?? 'home');
-$rj_index    = (int) ($args['index'] ?? 0);
-$rj_post_id  = (int) get_the_ID();
-$rj_minutes  = rj_reading_time_minutes((string) get_the_content());
+$args         = is_array($args ?? null) ? $args : array();
+$rj_variant   = (string) ($args['variant'] ?? 'home');
+$rj_index     = (int) ($args['index'] ?? 0);
+$rj_filter_for = (string) ($args['filter_for'] ?? '');
+$rj_hidden    = !empty($args['hidden']);
+$rj_post_id   = (int) get_the_ID();
+$rj_minutes   = rj_reading_time_minutes((string) get_the_content());
 $rj_is_review = get_post_type() === 'recenzja';
 
 // Reviews have no category, so in mixed lists (search) they carry a type label instead.
@@ -27,8 +31,17 @@ if ($rj_is_review) {
     $rj_label_url = $rj_cat instanceof WP_Term ? (string) get_category_link($rj_cat) : '';
     $rj_filter    = rj_category_filter_slug($rj_cat);
 }
+
 ?>
-<article <?php post_class('row-item'); ?><?php echo $rj_is_review ? '' : ' data-category="' . esc_attr($rj_filter) . '"'; ?>>
+<article
+    <?php post_class('row-item'); ?>
+    <?php if ($rj_filter_for !== '') : ?>
+        data-filter-for="<?php echo esc_attr($rj_filter_for); ?>"
+    <?php elseif (!$rj_is_review && $rj_filter !== '') : ?>
+        data-category="<?php echo esc_attr($rj_filter); ?>"
+    <?php endif; ?>
+    <?php echo $rj_hidden ? ' hidden' : ''; ?>
+>
     <?php if ($rj_variant === 'archive') : ?>
         <span class="row-item__date"><?php echo esc_html(get_the_date('j M')); ?></span>
     <?php else : ?>

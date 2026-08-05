@@ -48,24 +48,35 @@
 
         <div class="row-list" id="rj-thoughts">
             <?php
-            $rj_thoughts = new WP_Query(array(
-                'posts_per_page'      => 5,
-                'ignore_sticky_posts' => true,
-                'no_found_rows'       => true,
-                'post__not_in'        => $rj_featured_id > 0 ? array($rj_featured_id) : array(),
-            ));
-            if ($rj_thoughts->have_posts()) :
-                $rj_i = 0;
+            $rj_pools   = array_merge(array('*'), array_keys($rj_chips));
+            $rj_any     = false;
+            foreach ($rj_pools as $rj_pool) :
+                if ($rj_pool !== '*' && !isset($rj_chips[$rj_pool])) {
+                    continue;
+                }
+                if ($rj_pool !== '*' && !get_category_by_slug($rj_pool) instanceof WP_Term) {
+                    continue;
+                }
+                $rj_thoughts = rj_home_thoughts_query($rj_pool, $rj_featured_id);
+                if (!$rj_thoughts->have_posts()) {
+                    wp_reset_postdata();
+                    continue;
+                }
+                $rj_any = true;
+                $rj_i   = 0;
                 while ($rj_thoughts->have_posts()) :
                     $rj_thoughts->the_post();
                     $rj_i++;
                     get_template_part('template-parts/list-item', null, array(
-                        'variant' => 'home',
-                        'index'   => $rj_i,
+                        'variant'    => 'home',
+                        'index'      => $rj_i,
+                        'filter_for' => $rj_pool,
+                        'hidden'     => $rj_pool !== '*',
                     ));
                 endwhile;
                 wp_reset_postdata();
-            else :
+            endforeach;
+            if (!$rj_any) :
                 get_template_part('template-parts/content', 'none');
             endif;
             ?>

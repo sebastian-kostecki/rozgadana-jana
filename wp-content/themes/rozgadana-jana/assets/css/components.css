@@ -98,6 +98,9 @@
 	border-bottom: 1px solid var(--line);
 	margin: 0;
 }
+.row-item[hidden] {
+	display: none !important;
+}
 .row-item:last-child { border-bottom: none; }
 .row-item__num {
 	flex: none;

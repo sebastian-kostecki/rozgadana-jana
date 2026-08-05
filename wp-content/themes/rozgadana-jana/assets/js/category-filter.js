@@ -1,16 +1,15 @@
-// Front-page "Wcześniej pisałam" filter. Shows/hides already-rendered rows by category.
+// Front-page "Wcześniej pisałam" filter. Shows/hides already-rendered pools by category.
 // Progressive enhancement: without JS the chips are plain links to category archives.
 (function () {
   var chips = document.querySelectorAll('.filter__chip');
   var list = document.getElementById('rj-thoughts');
   if (!chips.length || !list) return;
 
-  var rows = Array.prototype.slice.call(list.querySelectorAll('[data-category]'));
+  var rows = Array.prototype.slice.call(list.querySelectorAll('[data-filter-for]'));
 
   function apply(filter) {
     rows.forEach(function (row) {
-      var show = filter === '*' || row.getAttribute('data-category') === filter;
-      row.hidden = !show;
+      row.hidden = row.getAttribute('data-filter-for') !== filter;
     });
   }
 

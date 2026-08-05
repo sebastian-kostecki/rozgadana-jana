@@ -74,6 +74,36 @@ function rj_breadcrumb(array $items): void {
 }
 
 /**
+ * Home-page "Wcześniej pisałam" query: five latest posts, optionally in a category pool.
+ *
+ * @param string $filter_slug '*' for all posts, or a canonical chip slug.
+ * @param int    $exclude_id  Post ID to exclude (typically the featured post).
+ */
+function rj_home_thoughts_query(string $filter_slug = '*', int $exclude_id = 0): WP_Query {
+    $args = array(
+        'posts_per_page'      => 5,
+        'ignore_sticky_posts' => true,
+        'no_found_rows'       => true,
+        'post__not_in'        => $exclude_id > 0 ? array($exclude_id) : array(),
+    );
+
+    if ($filter_slug !== '*') {
+        $terms = $filter_slug === 'macierzynstwo-i-rodzina'
+            ? rj_family_category_slugs()
+            : array($filter_slug);
+        $args['tax_query'] = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
+            array(
+                'taxonomy' => 'category',
+                'field'    => 'slug',
+                'terms'    => $terms,
+            ),
+        );
+    }
+
+    return new WP_Query($args);
+}
+
+/**
  * Render social links as outline pills.
  */
 function rj_social_links(): void {
