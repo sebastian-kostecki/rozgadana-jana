@@ -169,16 +169,15 @@
 	box-shadow: var(--shadow);
 }
 .about-head__text { flex: 1; min-width: 0; }
-.about-head__lead {
+.about-head__bio {
 	font: 400 18px/1.7 var(--font-serif);
 	color: var(--text-read);
-	margin: 0;
 	max-width: 48ch;
 }
-.about-head__links { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 18px; }
+.about-head__bio > *:first-child { margin-top: 0; }
+.about-head__bio > *:last-child { margin-bottom: 0; }
+.about-head__bio p { margin: 0 0 1em; }
 .about-head .article__title { font-size: clamp(26px, 3.6vw, 34px); margin: 12px 0 12px; }
-
-.about-head + .article { padding-top: 20px; }
 
 /* Empty states (404, no results) */
 .empty {

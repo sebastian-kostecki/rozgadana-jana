@@ -13,18 +13,9 @@
             <div class="about-head__text">
                 <p class="eyebrow"><?php esc_html_e('Poznaj mnie', 'rozgadana-jana'); ?></p>
                 <h1 class="article__title"><?php the_title(); ?></h1>
-                <?php if (has_excerpt()) : ?>
-                    <p class="about-head__lead"><?php echo esc_html(get_the_excerpt()); ?></p>
-                <?php endif; ?>
-                <div class="about-head__links">
-                    <?php rj_social_links(); ?>
-                </div>
+                <div class="about-head__bio"><?php the_content(); ?></div>
             </div>
         </header>
-
-        <article <?php post_class('article'); ?>>
-            <div class="article__content"><?php the_content(); ?></div>
-        </article>
     <?php endwhile; ?>
 </main>
 <?php get_footer(); ?>
