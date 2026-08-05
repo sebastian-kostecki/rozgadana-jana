@@ -37,7 +37,7 @@ function rj_brand_logo_url(): string {
  * Short brand tagline used in brand bar and footer.
  */
 function rj_short_tagline(): string {
-    return __('O Bogu, o życiu, o rodzinie o sobie.', 'rozgadana-jana');
+    return __('O Bogu, o życiu, o rodzinie, o sobie.', 'rozgadana-jana');
 }
 
 /**
