@@ -77,7 +77,7 @@ Bootstrap note: `inc/primary-category.php` and `inc/year-separator.php` load via
 | `template-parts/filter-chips.php` | Render the chip row once; pass active slug / whether JS `data-filter` is needed (front page vs archive). |
 | Shared prev/next partial | Extract duplicated blocks from `single.php` and `single-recenzja.php`. |
 | Shared author image fallback | One helper (e.g. `rj_author_image_url(): string`) used by `about-strip.php` and `page-o-mnie.php` instead of two hard-coded `author.jpg` paths. |
-| Shared short tagline | Footer and brand-bar both use „O Bogu, o życiu, o rodzinie o sobie”. **Decision:** extract one small helper or shared string for that phrase only. Do not build a general `rj_brand_copy()` API for intro/eyebrow texts. |
+| Shared short tagline | Footer and brand-bar both use „O Bogu, o życiu, o rodzinie, o sobie”. **Decision:** extract one small helper or shared string for that phrase only. Do not build a general `rj_brand_copy()` API for intro/eyebrow texts. |
 
 ### 5.3 Nie robić (YAGNI)
 
