@@ -13,6 +13,20 @@ require_once __DIR__ . '/primary-category.php';
 require_once __DIR__ . '/year-separator.php';
 
 /**
+ * Fallback author photo shipped with the theme.
+ */
+function rj_author_image_url(): string {
+    return (string) get_theme_file_uri('assets/images/author.jpg');
+}
+
+/**
+ * Short brand tagline used in brand bar and footer.
+ */
+function rj_short_tagline(): string {
+    return __('O Bogu, o życiu, o rodzinie o sobie.', 'rozgadana-jana');
+}
+
+/**
  * Reading time in minutes for the current post content (~200 wpm, min 1).
  */
 function rj_reading_time_minutes(string $content): int {
@@ -120,6 +134,7 @@ function rj_social_links(): void {
 
     foreach ($links as $slug => $link) {
         $url = is_string($link['url']) ? trim($link['url']) : '';
+        // Skip empty Customizer URLs so the icon is omitted.
         if ($url === '') {
             continue;
         }

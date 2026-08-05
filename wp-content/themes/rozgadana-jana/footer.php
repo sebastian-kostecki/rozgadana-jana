@@ -12,7 +12,7 @@
         <div class="site-footer__bar">
             <div class="site-footer__copy">
                 <?php echo esc_html(sprintf('© %s #rozgadana_jana', date('Y'))); ?>
-                · <?php esc_html_e('O Bogu, o życiu, o rodzinie, o sobie', 'rozgadana-jana'); ?>
+                · <?php echo esc_html(rj_short_tagline()); ?>
             </div>
             <div class="site-footer__social"><?php rj_social_links(); ?></div>
         </div>

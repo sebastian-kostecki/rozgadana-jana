@@ -7,7 +7,7 @@
                 <?php the_post_thumbnail('rj-cover', array('class' => 'about-head__photo', 'alt' => esc_attr__('Autorka bloga Rozgadana Jana', 'rozgadana-jana'))); ?>
             <?php else : ?>
                 <img class="about-head__photo"
-                     src="<?php echo esc_url(get_theme_file_uri('assets/images/author.jpg')); ?>"
+                     src="<?php echo esc_url(rj_author_image_url()); ?>"
                      alt="<?php esc_attr_e('Autorka bloga Rozgadana Jana', 'rozgadana-jana'); ?>">
             <?php endif; ?>
             <div class="about-head__text">

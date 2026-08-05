@@ -14,7 +14,7 @@ if ($rj_about instanceof WP_Post && has_post_thumbnail($rj_about)) {
     $rj_photo = (string) get_the_post_thumbnail_url($rj_about, 'rj-cover');
 }
 if ($rj_photo === '') {
-    $rj_photo = (string) get_theme_file_uri('assets/images/author.jpg');
+    $rj_photo = rj_author_image_url();
 }
 
 $rj_bio = '';

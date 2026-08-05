@@ -30,21 +30,13 @@
             <div class="article__content"><?php the_content(); ?></div>
         </article>
 
-        <nav class="post-nav" aria-label="<?php esc_attr_e('Nawigacja recenzji', 'rozgadana-jana'); ?>">
-            <?php $rj_prev = get_previous_post(); $rj_next = get_next_post(); ?>
-            <?php if ($rj_prev instanceof WP_Post) : ?>
-                <a class="post-nav__link post-nav__link--prev" href="<?php echo esc_url(get_permalink($rj_prev)); ?>">
-                    <span class="post-nav__label"><?php esc_html_e('Poprzednia recenzja', 'rozgadana-jana'); ?></span>
-                    <span class="post-nav__title"><?php echo esc_html(get_the_title($rj_prev)); ?></span>
-                </a>
-            <?php endif; ?>
-            <?php if ($rj_next instanceof WP_Post) : ?>
-                <a class="post-nav__link post-nav__link--next" href="<?php echo esc_url(get_permalink($rj_next)); ?>">
-                    <span class="post-nav__label"><?php esc_html_e('Następna recenzja', 'rozgadana-jana'); ?></span>
-                    <span class="post-nav__title"><?php echo esc_html(get_the_title($rj_next)); ?></span>
-                </a>
-            <?php endif; ?>
-        </nav>
+        <?php
+        get_template_part('template-parts/post-nav', null, array(
+            'aria_label' => __('Nawigacja recenzji', 'rozgadana-jana'),
+            'prev_label' => __('Poprzednia recenzja', 'rozgadana-jana'),
+            'next_label' => __('Następna recenzja', 'rozgadana-jana'),
+        ));
+        ?>
     <?php endwhile; ?>
 </main>
 <?php get_footer(); ?>
