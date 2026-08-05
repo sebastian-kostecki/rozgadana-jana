@@ -10,25 +10,28 @@ declare(strict_types=1);
 defined('ABSPATH') || exit;
 
 add_action('wp_enqueue_scripts', static function (): void {
-    $ver = RJ_THEME_VERSION;
+    $ver = static function (string $relative): string {
+        $path = get_theme_file_path($relative);
+        if (is_string($path) && $path !== '' && file_exists($path)) {
+            return (string) filemtime($path);
+        }
+        return (string) RJ_THEME_VERSION;
+    };
 
-    // Fonts first, then tokens, then components, then reading typography.
-    // The chain fixes cascade order without needing a build step.
-    wp_enqueue_style('rj-fonts', get_theme_file_uri('assets/css/fonts.css'), array(), $ver);
-    wp_enqueue_style('rj-base', get_theme_file_uri('assets/css/base.css'), array('rj-fonts'), $ver);
-    wp_enqueue_style('rj-components', get_theme_file_uri('assets/css/components.css'), array('rj-base'), $ver);
-    wp_enqueue_style('rj-content', get_theme_file_uri('assets/css/content.css'), array('rj-components'), $ver);
-    // The theme header stylesheet (kept for tooling; contains no visual rules).
-    wp_enqueue_style('rj-style', get_stylesheet_uri(), array('rj-content'), $ver);
+    wp_enqueue_style('rj-fonts', get_theme_file_uri('assets/css/fonts.css'), array(), $ver('assets/css/fonts.css'));
+    wp_enqueue_style('rj-base', get_theme_file_uri('assets/css/base.css'), array('rj-fonts'), $ver('assets/css/base.css'));
+    wp_enqueue_style('rj-components', get_theme_file_uri('assets/css/components.css'), array('rj-base'), $ver('assets/css/components.css'));
+    wp_enqueue_style('rj-content', get_theme_file_uri('assets/css/content.css'), array('rj-components'), $ver('assets/css/content.css'));
+    // style.css stays on disk for the theme header only — not enqueued on the front end.
 
-    wp_enqueue_script('rj-nav', get_theme_file_uri('assets/js/nav.js'), array(), $ver, true);
+    wp_enqueue_script('rj-nav', get_theme_file_uri('assets/js/nav.js'), array(), $ver('assets/js/nav.js'), true);
 
     if (is_front_page()) {
-        wp_enqueue_script('rj-filter', get_theme_file_uri('assets/js/category-filter.js'), array(), $ver, true);
+        wp_enqueue_script('rj-filter', get_theme_file_uri('assets/js/category-filter.js'), array(), $ver('assets/js/category-filter.js'), true);
     }
 
     if (is_singular()) {
-        wp_enqueue_script('rj-progress', get_theme_file_uri('assets/js/reading-progress.js'), array(), $ver, true);
+        wp_enqueue_script('rj-progress', get_theme_file_uri('assets/js/reading-progress.js'), array(), $ver('assets/js/reading-progress.js'), true);
     }
 }, 20);
 
