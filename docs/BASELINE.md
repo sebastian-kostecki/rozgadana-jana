@@ -1,7 +1,7 @@
 # Baseline — punkt startowy dalszej pracy
 
 **Data:** 2026-08-05  
-**Commit:** `aa86409` (Task 6: pre-deploy cleanup, v0.2.5)  
+**Commit:** `d365cee` (Task 6: pre-deploy cleanup, v0.2.5)  
 **Gałąź bazowa:** `development`  
 **Motyw:** `wp-content/themes/rozgadana-jana` v0.2.5
 
