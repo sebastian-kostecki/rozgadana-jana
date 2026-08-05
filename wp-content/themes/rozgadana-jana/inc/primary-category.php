@@ -12,6 +12,27 @@ if (!function_exists('rj_thought_category_slugs')) {
     }
 }
 
+if (!function_exists('rj_thought_category_chips')) {
+    /**
+     * Thought-category chips: slug => label (display order).
+     *
+     * @return array<string, string>
+     */
+    function rj_thought_category_chips(): array {
+        $labels = array(
+            'codziennosc-z-bogiem'    => __('Codzienność z Bogiem', 'rozgadana-jana'),
+            'macierzynstwo-i-rodzina' => __('Macierzyństwo i rodzina', 'rozgadana-jana'),
+        );
+        $chips = array();
+        foreach (rj_thought_category_slugs() as $slug) {
+            if (isset($labels[$slug])) {
+                $chips[$slug] = $labels[$slug];
+            }
+        }
+        return $chips;
+    }
+}
+
 if (!function_exists('rj_family_category_slugs')) {
     /**
      * Family-category slugs including legacy aliases.
