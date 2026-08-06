@@ -17,12 +17,16 @@ if ($rj_photo === '') {
     $rj_photo = rj_author_image_url();
 }
 
-$rj_bio = '';
+$rj_books_line = __('Dzielę się wartościowymi książkami.', 'rozgadana-jana');
+$rj_bio        = '';
 if ($rj_about instanceof WP_Post && $rj_about->post_excerpt !== '') {
     $rj_bio = $rj_about->post_excerpt;
 }
 if ($rj_bio === '') {
     $rj_bio = __('Żona, mama, katoliczka, która nie udaje, że ma wszystko poukładane. Piszę o wierze bez patosu i o rodzinie bez filtra.', 'rozgadana-jana');
+}
+if (mb_stripos($rj_bio, $rj_books_line) === false) {
+    $rj_bio = rtrim($rj_bio) . ' ' . $rj_books_line;
 }
 ?>
 <section class="about-strip" id="kto-tu-pisze" aria-labelledby="about-strip-title">
