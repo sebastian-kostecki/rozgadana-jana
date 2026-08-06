@@ -8,13 +8,13 @@
         )); ?>
         <p class="eyebrow"><?php esc_html_e('Recenzje', 'rozgadana-jana'); ?></p>
         <h1><?php esc_html_e('Wartościowe książki', 'rozgadana-jana'); ?></h1>
-        <p class="lead"><?php esc_html_e('Książki, które coś we mnie zostawiły. Nie recenzuję wszystkiego, co przeczytam — tylko to, do czego chcę wracać.', 'rozgadana-jana'); ?></p>
+        <p class="lead"><?php esc_html_e('Recenzje książek, które czytam. Piszę szczerze, bez udawanego zachwytu.', 'rozgadana-jana'); ?></p>
     </header>
 
     <?php if (have_posts()) : ?>
         <div class="cover-grid">
             <?php while (have_posts()) : the_post(); ?>
-                <?php get_template_part('template-parts/review-cover', null, array('variant' => 'grid')); ?>
+                <?php get_template_part('template-parts/review-cover', null, array('variant' => 'shelf')); ?>
             <?php endwhile; ?>
         </div>
         <?php the_posts_pagination(array('mid_size' => 1, 'prev_text' => '←', 'next_text' => '→')); ?>

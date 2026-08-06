@@ -323,18 +323,12 @@
 	.featured__title { max-width: none; }
 }
 
-/* Book covers — shelf on the front page, grid on the archive */
+/* Book covers — shelf on the front page, grid on the archive (same 6-col scale) */
 .cover-shelf,
 .cover-grid {
 	display: grid;
-}
-.cover-shelf {
 	grid-template-columns: repeat(6, 1fr);
 	gap: 18px 14px;
-}
-.cover-grid {
-	grid-template-columns: repeat(4, 1fr);
-	gap: 22px 20px;
 }
 .cover-item { margin: 0; }
 .cover-item__art {
@@ -352,7 +346,8 @@
 	letter-spacing: 0;
 	margin: 12px 0 0;
 }
-.cover-shelf .cover-item__title {
+.cover-shelf .cover-item__title,
+.cover-grid .cover-item__title {
 	font-size: 14px;
 	margin-top: 8px;
 }
@@ -362,7 +357,8 @@
 	color: var(--purple);
 	margin: 4px 0 0;
 }
-.cover-shelf .cover-item__by {
+.cover-shelf .cover-item__by,
+.cover-grid .cover-item__by {
 	font-size: 12px;
 }
 .cover-item__excerpt {
