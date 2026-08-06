@@ -58,7 +58,7 @@ Wgraj foldery z punktu 3 powyżej. Nadpisz istniejący motyw lub wgraj obok i ak
 | **Menu główne** | Wygląd → Menu → przypisz do lokalizacji **Menu główne** (`primary`): Start, kategorie, Książki, O mnie |
 | **Menu stopki** | Przypisz do **Menu w stopce** (`footer`) |
 | **Strona O mnie** | Utwórz/edytuj stronę `o-mnie`, szablon **page-o-mnie.php** (lub meta `_wp_page_template`) |
-| **Favicon** | Wygląd → Dostosuj → Tożsamość witryny → ikona z okrągłego logo (opcjonalnie) |
+| **Favicon / Site Icon** | Wygląd → Dostosuj → Tożsamość witryny → **Ikona witryny**: wgraj `wp-content/themes/rozgadana-jana/assets/images/site-icon.png` (okrągłe PNG z przezroczystym tłem). Na serwerze wgraj też rootowy `favicon.ico` z repo. |
 
 ### 1.4 Kategorie — sprawdź slugi
 
