@@ -76,7 +76,7 @@
             <?php
             $rj_reviews = new WP_Query(array(
                 'post_type'      => 'recenzja',
-                'posts_per_page' => 4,
+                'posts_per_page' => 6,
                 'no_found_rows'  => true,
             ));
             if ($rj_reviews->have_posts()) :

@@ -35,3 +35,12 @@ add_action('after_setup_theme', static function (): void {
 
 add_filter('excerpt_length', static fn (int $length): int => 28);
 add_filter('excerpt_more', static fn (string $more): string => '…');
+
+add_action('pre_get_posts', static function (WP_Query $query): void {
+    if (is_admin() || !$query->is_main_query()) {
+        return;
+    }
+    if ($query->is_post_type_archive('recenzja')) {
+        $query->set('posts_per_page', 12);
+    }
+});
