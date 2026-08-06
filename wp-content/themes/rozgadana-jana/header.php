@@ -11,7 +11,7 @@
 <a class="skip-link" href="#main"><?php esc_html_e('Przejdź do treści', 'rozgadana-jana'); ?></a>
 <header class="site-header">
     <div class="container">
-        <a class="site-brand" href="<?php echo esc_url(home_url('/')); ?>"><span class="site-brand__hash">#</span>rozgadana_jana</a>
+        <a class="site-brand" href="<?php echo esc_url(home_url('/')); ?>"><span class="site-brand__hash">#</span>rozgadana<span class="site-brand__hash">jana</span></a>
         <button class="nav-toggle" aria-expanded="false" aria-controls="primary-menu">
             <?php esc_html_e('Menu', 'rozgadana-jana'); ?>
         </button>
