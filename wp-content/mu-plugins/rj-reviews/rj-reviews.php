@@ -2,7 +2,7 @@
 /**
  * Plugin Name: RJ Reviews
  * Description: Registers the "recenzja" (book review) content type and its book-author meta. Kept as a must-use plugin so reviews survive theme changes.
- * Version: 0.1.0
+ * Version: 0.2.0
  */
 
 declare(strict_types=1);
@@ -79,3 +79,5 @@ add_action('save_post_' . RJ_REVIEW_CPT, static function (int $post_id): void {
 function rj_review_book_author(int $post_id): string {
     return (string) get_post_meta($post_id, RJ_REVIEW_META, true);
 }
+
+require_once __DIR__ . '/convert-to-review.php';
