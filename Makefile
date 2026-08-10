@@ -1,4 +1,4 @@
-.PHONY: setup up down logs shell wp reset config
+.PHONY: setup up down logs shell wp reset config promote-staging
 
 setup:
 	./scripts/setup.sh
@@ -24,3 +24,6 @@ reset:
 
 config:
 	docker compose config
+
+promote-staging:
+	./scripts/promote-to-staging.sh

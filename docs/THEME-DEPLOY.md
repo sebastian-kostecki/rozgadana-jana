@@ -35,10 +35,12 @@ Workflow z repo: **`development` → `staging` → `main`**, upload plików prze
 
 ### 1.1 Git
 
+Selektywny promote (tylko motyw + mu-plugin, bez środowiska Docker/docs):
+
 ```bash
+./scripts/promote-to-staging.sh    # lub: make promote-staging
 git checkout staging
-git merge development
-git diff main -- wp-content/    # przejrzyj zmiany
+git diff main -- wp-content/themes/rozgadana-jana/ wp-content/mu-plugins/
 git push origin staging
 ```
 

@@ -33,15 +33,19 @@ When you install a plugin locally, also install it on the server (FTP or hosting
 
 ## Staging Deploy
 
+Promote **only** the theme + mu-plugin from `development` onto `staging` (skips Docker/docs/dev tooling):
+
 ```bash
 git checkout development
 git status                                    # must be clean
 
-git checkout staging
-git merge development
-git diff main -- wp-content/                  # review changes
+./scripts/promote-to-staging.sh               # or: make promote-staging
+# optional preview: ./scripts/promote-to-staging.sh --dry-run
 
-# Upload changed wp-content folders to staging server via FTP
+git checkout staging
+git diff main -- wp-content/themes/rozgadana-jana/ wp-content/mu-plugins/
+
+# Upload changed theme / mu-plugin folders to staging server via FTP
 
 git push origin staging
 ```
