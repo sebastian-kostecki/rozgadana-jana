@@ -122,6 +122,12 @@ git push origin main
 
 WordPress **nie ma** wbudowanego przycisku „zmień typ treści” w edytorze. Są trzy sensowne sposoby.
 
+### Sposób 0 — panel admina (zalecany na co dzień)
+
+Na liście **Wpisy** pod tytułem kliknij **Zrób recenzją**. Zmienia tylko typ treści na `recenzja` (to samo ID). Potem w edycji recenzji uzupełnij **Autor książki**.
+
+Przydatne po imporcie z Facebooka (automat tworzy zawsze zwykły wpis). Do masowej migracji nadal wygodniejszy jest WP-CLI poniżej.
+
 ### Co się zmienia po konwersji
 
 | Element | Wpis (stary) | Recenzja (nowy) |
