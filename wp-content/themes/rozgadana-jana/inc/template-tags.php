@@ -162,3 +162,44 @@ function rj_social_links(): void {
         );
     }
 }
+
+/**
+ * Render post/review support CTA pills (Instagram, Facebook, BuyCoffee).
+ *
+ * Empty Customizer URLs are skipped. Returns false when nothing to show.
+ */
+function rj_support_cta(): bool {
+    $links = array(
+        'instagram' => array(
+            'label' => __('Obserwuj na Instagramie', 'rozgadana-jana'),
+            'url'   => get_theme_mod('rj_instagram_url', 'https://www.instagram.com/rozgadana_jana/'),
+        ),
+        'facebook'  => array(
+            'label' => __('Polub na Facebooku', 'rozgadana-jana'),
+            'url'   => get_theme_mod('rj_facebook_url', 'https://www.facebook.com/rozgadanajana/'),
+        ),
+        'coffee'    => array(
+            'label' => __('Postaw kawę', 'rozgadana-jana'),
+            'url'   => get_theme_mod('rj_buycoffee_url', 'https://buycoffee.to/rozgadanajana'),
+        ),
+    );
+
+    $rendered = 0;
+    foreach ($links as $slug => $link) {
+        $url = is_string($link['url']) ? trim($link['url']) : '';
+        if ($url === '') {
+            continue;
+        }
+
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- rj_icon() returns trusted hardcoded SVG; wp_kses strips viewBox.
+        printf(
+            '<a class="pill pill--social" href="%s" rel="noopener noreferrer" target="_blank">%s<span>%s</span></a>',
+            esc_url($url),
+            rj_icon($slug),
+            esc_html($link['label'])
+        );
+        $rendered++;
+    }
+
+    return $rendered > 0;
+}

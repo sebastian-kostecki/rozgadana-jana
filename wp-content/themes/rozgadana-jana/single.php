@@ -30,6 +30,10 @@
             <div class="article__content"><?php the_content(); ?></div>
         </article>
 
+        <?php get_template_part('template-parts/support-cta'); ?>
+
+        <?php comments_template(); ?>
+
         <?php
         get_template_part('template-parts/post-nav', null, array(
             'aria_label' => __('Nawigacja wpisów', 'rozgadana-jana'),

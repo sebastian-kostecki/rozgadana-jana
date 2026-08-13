@@ -27,6 +27,10 @@ add_action('customize_register', static function (WP_Customize_Manager $wp_custo
             'label'   => __('Instagram URL', 'rozgadana-jana'),
             'default' => 'https://www.instagram.com/rozgadana_jana/',
         ),
+        'rj_buycoffee_url' => array(
+            'label'   => __('BuyCoffee.to URL', 'rozgadana-jana'),
+            'default' => 'https://buycoffee.to/rozgadanajana',
+        ),
     );
 
     foreach ($settings as $id => $args) {
