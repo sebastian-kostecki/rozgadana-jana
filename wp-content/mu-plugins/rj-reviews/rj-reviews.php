@@ -2,7 +2,7 @@
 /**
  * Plugin Name: RJ Reviews
  * Description: Registers the "recenzja" (book review) content type and its book-author meta. Kept as a must-use plugin so reviews survive theme changes.
- * Version: 0.2.0
+ * Version: 0.3.0
  */
 
 declare(strict_types=1);
@@ -25,7 +25,7 @@ add_action('init', static function (): void {
         'has_archive'  => 'ksiazki',
         'menu_icon'    => 'dashicons-book-alt',
         'rewrite'      => array('slug' => 'ksiazki'),
-        'supports'     => array('title', 'editor', 'thumbnail', 'excerpt'),
+        'supports'     => array('title', 'editor', 'thumbnail', 'excerpt', 'comments'),
         'show_in_rest' => true,
     ));
 
@@ -37,6 +37,38 @@ add_action('init', static function (): void {
         'auth_callback'     => static fn (): bool => current_user_can('edit_posts'),
     ));
 });
+
+add_action('init', static function (): void {
+    if (get_option('rj_reviews_comments_opened') === '1') {
+        return;
+    }
+
+    global $wpdb;
+
+    $ids = $wpdb->get_col(
+        $wpdb->prepare(
+            "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND comment_status = %s AND post_status NOT IN ('trash','auto-draft','inherit')",
+            RJ_REVIEW_CPT,
+            'closed'
+        )
+    );
+
+    if ($ids !== array()) {
+        $wpdb->query(
+            $wpdb->prepare(
+                "UPDATE {$wpdb->posts} SET comment_status = %s WHERE post_type = %s AND comment_status = %s AND post_status NOT IN ('trash','auto-draft','inherit')",
+                'open',
+                RJ_REVIEW_CPT,
+                'closed'
+            )
+        );
+        foreach ($ids as $id) {
+            clean_post_cache((int) $id);
+        }
+    }
+
+    update_option('rj_reviews_comments_opened', '1', true);
+}, 20);
 
 // Meta box for the book author.
 add_action('add_meta_boxes', static function (): void {

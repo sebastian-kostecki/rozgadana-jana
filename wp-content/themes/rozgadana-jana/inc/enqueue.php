@@ -32,6 +32,9 @@ add_action('wp_enqueue_scripts', static function (): void {
 
     if (is_singular()) {
         wp_enqueue_script('rj-progress', get_theme_file_uri('assets/js/reading-progress.js'), array(), $ver('assets/js/reading-progress.js'), true);
+        if (comments_open() && get_option('thread_comments')) {
+            wp_enqueue_script('comment-reply');
+        }
     }
 }, 20);
 

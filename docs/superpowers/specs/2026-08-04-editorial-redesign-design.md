@@ -219,8 +219,7 @@ breadcrumb, category name, Lora H1, meta line, and the body in the 680px reading
   cap renders; that is acceptable and needs no fallback.
 - Blockquotes: 3px `--purple` left rule, Lora italic, `--purple-deep`. No lilac background —
   the rule alone is enough and keeps the reading surface uniform.
-- Prev/next post navigation above the footer. No comments, no author box, no related posts,
-  no share buttons (unchanged from the original spec).
+- Prev/next post navigation above the footer. Comments sit between the support CTA and prev/next. No author box, no related posts, no share buttons.
 
 ### 5.5 Single review (`single-recenzja.php`)
 
@@ -350,7 +349,7 @@ every string wrapped in the `rozgadana-jana` text domain, assets enqueued (never
 
 ## 8. Non-goals
 
-Comments, newsletter signup, dark mode, star ratings, related posts, author box, share
+Newsletter signup, dark mode, star ratings, related posts, author box, share
 buttons, Customizer or options panels, page builders, new CPTs or meta fields, changes to
 navigation or URLs.
 

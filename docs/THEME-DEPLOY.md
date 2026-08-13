@@ -17,6 +17,7 @@ Workflow z repo: **`development` → `staging` → `main`**, upload plików prze
 
    - strona główna (brand bar, featured stage, filtr kategorii, typographic rows, cover shelf/grid)
    - pojedynczy wpis, archiwum kategorii
+   - pojedynczy wpis i pojedyncza recenzja: sekcja komentarzy (lista + formularz) pod CTA Wesprzyj; strona O mnie bez komentarzy
    - `/ksiazki/`, pojedyncza recenzja
    - `/o-mnie/` (about strip), 404, wyszukiwarka
    - `php wp-content/themes/rozgadana-jana/tests/test-reading-time.php` → OK
@@ -61,6 +62,7 @@ Wgraj foldery z punktu 3 powyżej. Nadpisz istniejący motyw lub wgraj obok i ak
 | **Menu stopki** | Przypisz do **Menu w stopce** (`footer`) |
 | **Strona O mnie** | Utwórz/edytuj stronę `o-mnie`, szablon **page-o-mnie.php** (lub meta `_wp_page_template`) |
 | **Favicon / Site Icon** | Wygląd → Dostosuj → Tożsamość witryny → **Ikona witryny**: wgraj `wp-content/themes/rozgadana-jana/assets/images/site-icon.png` (okrągłe PNG z przezroczystym tłem). Na serwerze wgraj też rootowy `favicon.ico` z repo. |
+| **Dyskusja** | Ustawienia → Dyskusja: zezwól na komentarze przy nowych wpisach; zostaw Akismet; nie włączaj automatycznego zamykania starych wpisów, jeśli Jana ma dostawać nowe komentarze pod archiwum. Po wdrożeniu pierwszorazowe ładowanie otwiera komentarze na istniejących wpisach i recenzjach (`rj_posts_comments_opened` / `rj_reviews_comments_opened`) — tylko pole `comment_status`, bez zapisu treści. Potem można zamknąć dyskusję przy pojedynczym wpisie/recenzji w edytorze. |
 
 ### 1.4 Kategorie — sprawdź slugi
 
