@@ -113,6 +113,27 @@
 	.review-head { flex-direction: column; gap: 18px; }
 }
 
+/* Support CTA under posts and reviews */
+.support-cta {
+	max-width: var(--reading);
+	margin: 28px auto 0;
+	padding: 20px 22px;
+	background: var(--lilac);
+	border: 1px solid var(--line);
+	border-radius: var(--radius);
+}
+.support-cta .eyebrow { margin-bottom: 8px; }
+.support-cta__lead {
+	font: 500 17px/1.4 var(--font-serif);
+	color: var(--ink);
+	margin: 0 0 14px;
+}
+.support-cta__pills {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
 /* Prev/next */
 .post-nav {
 	max-width: var(--reading);
